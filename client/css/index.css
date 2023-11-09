@@ -1,0 +1,17 @@
+/* Add this CSS to your existing styles */
+body {
+    background-image: url('/Users/manavpatel/Desktop/MIS321/group-project-thebookbin/client/img/backgroundbookbin.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-position: center;
+}
+
+.logo-image {
+    width: 200px;
+    height: 46px;
+    overflow: hidden;
+    /* Other styles for your logo if needed */
+}
+
+/* Remove the 'position: auto;' from your '.body' class, as it's not a valid CSS property. */
