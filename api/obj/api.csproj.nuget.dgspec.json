@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/manavpatel/Desktop/MIS321/TheBookBin/api/api.csproj": {}
+    "/Users/manavpatel/Desktop/MIS321/group-project-thebookbin/api/api.csproj": {}
   },
   "projects": {
-    "/Users/manavpatel/Desktop/MIS321/TheBookBin/api/api.csproj": {
+    "/Users/manavpatel/Desktop/MIS321/group-project-thebookbin/api/api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/manavpatel/Desktop/MIS321/TheBookBin/api/api.csproj",
+        "projectUniqueName": "/Users/manavpatel/Desktop/MIS321/group-project-thebookbin/api/api.csproj",
         "projectName": "api",
-        "projectPath": "/Users/manavpatel/Desktop/MIS321/TheBookBin/api/api.csproj",
+        "projectPath": "/Users/manavpatel/Desktop/MIS321/group-project-thebookbin/api/api.csproj",
         "packagesPath": "/Users/manavpatel/.nuget/packages/",
-        "outputPath": "/Users/manavpatel/Desktop/MIS321/TheBookBin/api/obj/",
+        "outputPath": "/Users/manavpatel/Desktop/MIS321/group-project-thebookbin/api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/manavpatel/.nuget/NuGet/NuGet.Config"
@@ -45,6 +45,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "mysql.data": {
+              "target": "Package",
+              "version": "[8.2.0, )"
             }
           },
           "imports": [
