@@ -14,7 +14,7 @@ namespace api
             database = "aovklha05u21jv78";
             username= "xoax93ec0p6qflzx";
             port="3306";
-            password="nn1xb0wqzjjcjwqew";
+            password="n1xb0wqzjjcjwqew";
             cs = $"server={host};user={username};database={database};port={port};password={password}";
         }
     }
