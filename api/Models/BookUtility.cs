@@ -37,57 +37,57 @@ namespace api.Models
             return bookList;
         }
 
-        public void EditBook(Book value){
-            Database db = new Database();
-            using var con = new MySqlConnection(db.cs);
-            con.Open();
+        // public void EditBook(Book value){
+        //     Database db = new Database();
+        //     using var con = new MySqlConnection(db.cs);
+        //     con.Open();
 
-            string stm = @"UPDATE book SET BookID = @BookID, BookName = @BookName, BookAuthor = @BookAuthor, BookGenre = @BookGenre, BookDescription = @BookDescription, BookImage = @BookImage, NewQuantity = @NewQuantity, NewPrice = @NewPrice, GoodQuantity = @GoodQuantity, GoodPrice = @GoodPrice, PoorQuantity = @PoorQuantity, PoorPrice = @PoorPrice, AdminID = @AdminID;";
-            using var cmd = new MySqlCommand(stm, con);
+        //     string stm = @"UPDATE book SET BookID = @BookID, BookName = @BookName, BookAuthor = @BookAuthor, BookGenre = @BookGenre, BookDescription = @BookDescription, BookImage = @BookImage, NewQuantity = @NewQuantity, NewPrice = @NewPrice, GoodQuantity = @GoodQuantity, GoodPrice = @GoodPrice, PoorQuantity = @PoorQuantity, PoorPrice = @PoorPrice, AdminID = @AdminID;";
+        //     using var cmd = new MySqlCommand(stm, con);
 
-            cmd.Parameters.AddWithValue("@BookID", value.ID);
-            cmd.Parameters.AddWithValue("@BookName", value.ID);
-            cmd.Parameters.AddWithValue("@BookAuthor", value.ID);
-            cmd.Parameters.AddWithValue("@BookGenre", value.ID);
-            cmd.Parameters.AddWithValue("@BookDescription", value.ID);
-            cmd.Parameters.AddWithValue("@BookImage", value.ID);
-            cmd.Parameters.AddWithValue("@NewQuantity", value.ID);
-            cmd.Parameters.AddWithValue("@NewPrice", value.ID);
-            cmd.Parameters.AddWithValue("@GoodQuantity", value.ID);
-            cmd.Parameters.AddWithValue("@GoodPrice", value.ID);
-            cmd.Parameters.AddWithValue("@PoorQuantity", value.ID);
-            cmd.Parameters.AddWithValue("@PoorPrice", value.ID);
-            cmd.Parameters.AddWithValue("@AdminID", value.ID);
+        //     cmd.Parameters.AddWithValue("@BookID", value.ID);
+        //     cmd.Parameters.AddWithValue("@BookName", value.ID);
+        //     cmd.Parameters.AddWithValue("@BookAuthor", value.ID);
+        //     cmd.Parameters.AddWithValue("@BookGenre", value.ID);
+        //     cmd.Parameters.AddWithValue("@BookDescription", value.ID);
+        //     cmd.Parameters.AddWithValue("@BookImage", value.ID);
+        //     cmd.Parameters.AddWithValue("@NewQuantity", value.ID);
+        //     cmd.Parameters.AddWithValue("@NewPrice", value.ID);
+        //     cmd.Parameters.AddWithValue("@GoodQuantity", value.ID);
+        //     cmd.Parameters.AddWithValue("@GoodPrice", value.ID);
+        //     cmd.Parameters.AddWithValue("@PoorQuantity", value.ID);
+        //     cmd.Parameters.AddWithValue("@PoorPrice", value.ID);
+        //     cmd.Parameters.AddWithValue("@AdminID", value.ID);
 
-            cmd.Prepare();
-            cmd.ExecuteNonQuery();
-        }
+        //     cmd.Prepare();
+        //     cmd.ExecuteNonQuery();
+        // }
 
-        public void AddBook(Book value){
-            Database db = new Database();
-            using var con = new MySqlConnection(db.cs);
-            con.Open();
+        // public void AddBook(Book value){
+        //     Database db = new Database();
+        //     using var con = new MySqlConnection(db.cs);
+        //     con.Open();
 
-            string stm = @"INSERT INTO book(BookID, BookName, BookAuthor, BookGenre, BookDescription, BookImage, NewQuantity, NewPrice, GoodQuantity, GoodPrice, PoorQuantity, PoorPrice, AdminID) VALUES(@BookID, @BookName, @BookAuthor, @BookGenre, @BookDescription, @BookImage, @NewQuantity, @NewPrice, @GoodQuantity, @GoodPrice, @PoorQuantity, @PoorPrice, @AdminID);";
-            using var cmd = new MySqlCommand(stm, con);
+        //     string stm = @"INSERT INTO book(BookID, BookName, BookAuthor, BookGenre, BookDescription, BookImage, NewQuantity, NewPrice, GoodQuantity, GoodPrice, PoorQuantity, PoorPrice, AdminID) VALUES(@BookID, @BookName, @BookAuthor, @BookGenre, @BookDescription, @BookImage, @NewQuantity, @NewPrice, @GoodQuantity, @GoodPrice, @PoorQuantity, @PoorPrice, @AdminID);";
+        //     using var cmd = new MySqlCommand(stm, con);
 
-            cmd.Parameters.AddWithValue("@BookID", value.ID);
-            cmd.Parameters.AddWithValue("@BookName", value.ID);
-            cmd.Parameters.AddWithValue("@BookAuthor", value.ID);
-            cmd.Parameters.AddWithValue("@BookGenre", value.ID);
-            cmd.Parameters.AddWithValue("@BookDescription", value.ID);
-            cmd.Parameters.AddWithValue("@BookImage", value.ID);
-            cmd.Parameters.AddWithValue("@NewQuantity", value.ID);
-            cmd.Parameters.AddWithValue("@NewPrice", value.ID);
-            cmd.Parameters.AddWithValue("@GoodQuantity", value.ID);
-            cmd.Parameters.AddWithValue("@GoodPrice", value.ID);
-            cmd.Parameters.AddWithValue("@PoorQuantity", value.ID);
-            cmd.Parameters.AddWithValue("@PoorPrice", value.ID);
-            cmd.Parameters.AddWithValue("@AdminID", value.ID);
+        //     cmd.Parameters.AddWithValue("@BookID", value.ID);
+        //     cmd.Parameters.AddWithValue("@BookName", value.ID);
+        //     cmd.Parameters.AddWithValue("@BookAuthor", value.ID);
+        //     cmd.Parameters.AddWithValue("@BookGenre", value.ID);
+        //     cmd.Parameters.AddWithValue("@BookDescription", value.ID);
+        //     cmd.Parameters.AddWithValue("@BookImage", value.ID);
+        //     cmd.Parameters.AddWithValue("@NewQuantity", value.ID);
+        //     cmd.Parameters.AddWithValue("@NewPrice", value.ID);
+        //     cmd.Parameters.AddWithValue("@GoodQuantity", value.ID);
+        //     cmd.Parameters.AddWithValue("@GoodPrice", value.ID);
+        //     cmd.Parameters.AddWithValue("@PoorQuantity", value.ID);
+        //     cmd.Parameters.AddWithValue("@PoorPrice", value.ID);
+        //     cmd.Parameters.AddWithValue("@AdminID", value.ID);
 
-            cmd.Prepare();
-            cmd.ExecuteNonQuery();
-        }
+        //     cmd.Prepare();
+        //     cmd.ExecuteNonQuery();
+        // }
 
 
     }
