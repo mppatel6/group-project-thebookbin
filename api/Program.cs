@@ -31,6 +31,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseCors("OpenPolicy");
 
 app.MapControllers();
 
