@@ -16,21 +16,20 @@ body {
     width: 200px;
     height: 46px;
     overflow: hidden;
-    /* Other styles for your logo if needed */
 }
 
 header {
     width: 100%;
-    z-index: 1000; /* Ensure the navbar appears above other elements */
+    z-index: 1000; 
 }
 
 .navbar {
-    background-color: rgba(255, 255, 255, 0.9); /* Optional: Add a semi-transparent background */
+    background-color: rgba(255, 255, 255, 0.9); 
 }
 
 .carousel-container {
     position: relative;
-    margin-top: 56px; /* Adjust based on your navbar height */
+    margin-top:200px;
     width: 80%;
     display: flex;
     align-items: center;
@@ -39,10 +38,10 @@ header {
 
 
 .carousel {
-    overflow-x: auto; /* Allows horizontal scrolling */
+    overflow-x: auto; 
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
-    border-radius: 10px; /* Rounded corners */
+    background-color: rgba(255, 255, 255, 0.7); 
+    border-radius: 10px; 
 }
 
 .carouselbox {
@@ -51,60 +50,60 @@ header {
 }
 
 .scroll-left, .scroll-right {
-    font-size: 30px; /* Large arrow size */
-    color: #000; /* Arrow color */
+    font-size: 30px; 
+    color: #000; 
     cursor: pointer;
     padding: 10px;
-    user-select: none; /* Prevent text selection */
-    position: absolute; /* Positioning relative to carousel-container */
-    top: 50%; /* Vertically center */
+    user-select: none; 
+    position: absolute;
+    top: 50%; 
     transform: translateY(-50%);
-    z-index: 3; /* Above carousel items */
+    z-index: 3; 
 }
 
 .scroll-left {
-    left: -40px; /* Adjust as needed */
+    left: -40px; 
 }
 
 .scroll-right {
-    right: -40px; /* Adjust as needed */
+    right: -40px; 
 }
 
 .carouselbox img {
-    width: 147px; /* Consistent width */
-    height: 200px; /* Consistent height */
+    width: 147px; 
+    height: 200px; 
     margin: 0 10px;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 5px; /* Rounded corners for images */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .carouselbox img:hover {
-    transform: scale(1.1); /* Slightly enlarge on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* More prominent shadow on hover */
-}
-/* Style the scrollbar itself (in WebKit/Blink browsers) */
-.carousel::-webkit-scrollbar {
-    width: 12px; /* scrollbar width */
+    transform: scale(1.1); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
-/* Handle */
+.carousel::-webkit-scrollbar {
+    width: 12px; 
+}
+
+
 .carousel::-webkit-scrollbar-thumb {
     background: #888; 
     border-radius: 6px;
 }
 
-/* Handle on hover */
 .carousel::-webkit-scrollbar-thumb:hover {
     background: #555; 
 }
 
-/* Optional: Track */
 .carousel::-webkit-scrollbar-track {
     background: #f1f1f1; 
     border-radius: 6px;
 }
+
+
 
 
 
