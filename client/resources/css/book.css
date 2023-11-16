@@ -8,21 +8,19 @@
     width: 200px;
     height: 46px;
     overflow: hidden;
-    /* Other styles for your logo if needed */
 }
 
 .book-image {
-    max-width: 150px; /* Adjust the size as needed */
-    margin-right: 20px; /* Adjust the margin between image and text */
+    max-width: 150px; 
+    margin-right: 20px;
 }
 
 .book-details {
-    flex-grow: 1; /* Allow the details div to grow and take remaining space */
+    flex-grow: 1; 
     color: white;
 }
 
 .prices {
-    margin-top: 10px; /* Adjust the margin between details and prices */
+    margin-top: 10px; 
 }
 
-/* Additional styling as needed */
