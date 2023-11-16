@@ -1,63 +1,62 @@
 
-    body {
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-image: url('./resources/img/bookbinbackground.jpeg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center;
-    }
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('./resources/img/bookbinbackground.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
 
-    .logo-image {
-        width: 200px;
-        height: 46px;
-        overflow: hidden;
-        /* Other styles for your logo if needed */
-    }
+.logo-image {
+    width: 200px;
+    height: 46px;
+    overflow: hidden;
+    /* Other styles for your logo if needed */
+}
 
-    header {
-        width: 100%;
-        z-index: 1000; /* Ensure the navbar appears above other elements */
-    }
+header {
+    width: 100%;
+    z-index: 1000; /* Ensure the navbar appears above other elements */
+}
 
-    .navbar {
-        background-color: rgba(255, 255, 255, 0.9); /* Optional: Add a semi-transparent background */
-    }
+.navbar {
+    background-color: rgba(255, 255, 255, 0.9); /* Optional: Add a semi-transparent background */
+}
 
-    .carousel {
-        margin-top: 56px; /* Adjust this value based on your navbar height */
-        height: 250px;
-        width: 80%;
-        overflow: scroll;
-    }
+.carousel {
+    margin-top: 56px; /* Adjust this value based on your navbar height */
+    height: 250px;
+    width: 80%;
+    overflow: scroll;
+}
 
-    .carouselbox {
-        white-space: nowrap;
-        text-align: center;
-        display: inline-block;
-        padding-bottom: 10px;
-        overflow-x: auto;
-    }
+.carouselbox {
+    white-space: nowrap;
+    text-align: center;
+    display: inline-block;
+    padding-bottom: 10px;
+    overflow-x: auto;
+}
 
-    .carouselbox img {
-        min-width: 147px;
-        max-width: 147px;
-        height: 200px;
-        background-size: cover;
-        background-color: coral;
-        margin: 5px 10px;
-        cursor: pointer;
-        transition: 0.5s ease;
-        z-index: 2;
-    }
+.carouselbox img {
+    min-width: 147px;
+    max-width: 147px;
+    height: 200px;
+    background-size: cover;
+    background-color: coral;
+    margin: 5px 10px;
+    cursor: pointer;
+    transition: 0.5s ease;
+    z-index: 2;
+}
 
-    .carouselbox img:hover {
-        transform: scale(1, 4);
-        z-index: 5;
-    }
-
+.carouselbox img:hover {
+    transform: scale(1, 4);
+    z-index: 5;
+}

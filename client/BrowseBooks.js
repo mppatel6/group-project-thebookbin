@@ -40,3 +40,7 @@ async function handleImageClick(index){
     localStorage.setItem('myBooks', JSON.stringify(Books[index]))
     window.location.replace("specificbook.html", "_blank")
 }
+
+function goToShoppingCartPage() {
+    window.location.replace("shoppingcart.html", "_blank")
+}
