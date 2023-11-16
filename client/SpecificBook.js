@@ -22,10 +22,10 @@ async function createBook(myBooks){
                 <h3>${myBooks.bookName}</h3>
                 <p>Author: ${myBooks.bookAuthor}</p>
                 <p>Genre: ${myBooks.bookGenre}</p>
-                <div class="prices">
-                    <p id="newPrice">New: $${myBooks.newPrice} (${myBooks.newQuantity} available) <button onclick="handleNewPriceClick('${myBooks.bookName}', 'New', ${myBooks.newPrice}, ${myBooks.newQuantity})">Add to Cart</button></p>
-                    <p id="goodPrice">Good: $${myBooks.goodPrice} (${myBooks.goodQuantity} available) <button onclick="handleGoodPriceClick('${myBooks.bookName}', 'Good', ${myBooks.goodPrice}, ${myBooks.goodQuantity})">Add to Cart</button></p>
-                    <p id="poorPrice">Poor: $${myBooks.poorPrice} (${myBooks.poorQuantity} available) <button onclick="handlePoorPriceClick('${myBooks.bookName}', 'Poor', ${myBooks.poorPrice}, ${myBooks.poorQuantity})">Add to Cart</button></p>
+                <div class="prices">)
+                    <p id="newPrice">New: $${myBooks.newPrice} (${myBooks.newQuantity} available) <button onclick="handleBuyClick('NEW')">Add to Cart</button></p>
+                    <p id="goodPrice">Good: $${myBooks.goodPrice} (${myBooks.goodQuantity} available) <button onclick="handleBuyClick('GOOD')">Add to Cart</button></p>
+                    <p id="poorPrice">Poor: $${myBooks.poorPrice} (${myBooks.poorQuantity} available) <button onclick="handleBuyClick('POOR')">Add to Cart</button></p>
                 </div>
             </div>
     </div>
@@ -33,14 +33,11 @@ async function createBook(myBooks){
     document.getElementById('bookbody').innerHTML = html
 }
 
-async function handleNewPriceClick(){
-
+async function handleBuyClick(condition){
+    localStorage.setItem('condition', condition);
+    localStorage.setItem('checkoutBooks', JSON.stringify(myBooks))
 }
 
-async function handleGoodPriceClick(){
-
-}
-
-async function handlePoorPriceClick(){
-    
+function goToShoppingCartPage() {
+    window.location.replace("shoppingcart.html", "_blank")
 }

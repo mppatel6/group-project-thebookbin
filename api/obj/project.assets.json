@@ -10469,19 +10469,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jakes\\.nuget\\packages\\": {}
+    "/Users/manavpatel/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jakes\\MIS321Prog\\repos\\group-project-thebookbin\\api\\api.csproj",
+      "projectUniqueName": "/Users/manavpatel/Desktop/MIS321/group-project-thebookbin/api/api.csproj",
       "projectName": "api",
-      "projectPath": "C:\\Users\\jakes\\MIS321Prog\\repos\\group-project-thebookbin\\api\\api.csproj",
-      "packagesPath": "C:\\Users\\jakes\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jakes\\MIS321Prog\\repos\\group-project-thebookbin\\api\\obj\\",
+      "projectPath": "/Users/manavpatel/Desktop/MIS321/group-project-thebookbin/api/api.csproj",
+      "packagesPath": "/Users/manavpatel/.nuget/packages/",
+      "outputPath": "/Users/manavpatel/Desktop/MIS321/group-project-thebookbin/api/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jakes\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/manavpatel/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -10541,7 +10541,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.404\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/7.0.100/libexec/sdk/7.0.100/RuntimeIdentifierGraph.json"
       }
     }
   }

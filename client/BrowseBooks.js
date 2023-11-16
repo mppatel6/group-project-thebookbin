@@ -58,3 +58,10 @@ function scrollCarouselRight() {
         behavior: 'smooth'
     });
 }
+function goToShoppingCartPage() {
+    window.location.replace("shoppingcart.html", "_blank")
+}
+
+function goToShoppingCartPage() {
+    window.location.replace("shoppingcart.html", "_blank")
+}
