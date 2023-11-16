@@ -20,4 +20,21 @@ body {
     z-index: 1;
 }
 
+/* Style the smaller container for the welcome text */
+.welcome-container {
+    max-width: 400px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the container horizontally */
+    text-align: center; /* Center-align the text */
+    padding: 20px; /* Add some padding for spacing */
+    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+    border-radius: 10px; /* Rounded corners */
+}
+
+/* Style the text within the smaller container */
+.welcome-container p {
+    font-size: 16px; /* Adjust the font size as needed */
+    line-height: 1.4; /* Adjust the line height for spacing between lines */
+    margin: 0; /* Remove default margins */
+}
+
 /* Remove the 'position: auto;' from your '.body' class, as it's not a valid CSS property. */
