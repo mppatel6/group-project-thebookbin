@@ -40,3 +40,21 @@ async function handleImageClick(index){
     localStorage.setItem('myBooks', JSON.stringify(Books[index]))
     window.location.replace("specificbook.html", "_blank")
 }
+
+function scrollCarouselLeft() {
+    const carousel = document.querySelector('.carousel');
+    carousel.scrollBy({
+        top: 0,
+        left: -scrollPerClick,
+        behavior: 'smooth'
+    });
+}
+
+function scrollCarouselRight() {
+    const carousel = document.querySelector('.carousel');
+    carousel.scrollBy({
+        top: 0,
+        left: scrollPerClick,
+        behavior: 'smooth'
+    });
+}
