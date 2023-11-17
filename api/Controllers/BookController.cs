@@ -29,14 +29,18 @@ namespace api.Controllers
 
         // POST: api/Book
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Book value)
         {
+            BookUtility addBook = new BookUtility();
+            addBook.AddBook(value);
         }
 
         // PUT: api/Book/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Book value)
         {
+            BookUtility editBook = new BookUtility();
+            editBook.EditBook(value);
         }
 
         // DELETE: api/Book/5
