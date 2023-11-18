@@ -33,10 +33,20 @@ async function createBook(myBooks){
     document.getElementById('bookbody').innerHTML = html
 }
 
-async function handleBuyClick(condition){
-    localStorage.setItem('condition', condition);
-    localStorage.setItem('checkoutBooks', JSON.stringify(myBooks))
+
+    // Function to handle adding a book to the shopping cart
+async function handleBuyClick(condition) {
+    let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+    let conditions = JSON.parse(localStorage.getItem('conditions')) || [];
+
+    shoppingCart.push(bookToAdd);
+    conditions.push(condition);
+
+    localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+    localStorage.setItem('conditions', JSON.stringify(conditions));
 }
+
+
 
 function goToShoppingCartPage() {
     window.location.replace("shoppingcart.html", "_blank")
