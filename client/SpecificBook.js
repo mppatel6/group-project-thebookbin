@@ -39,7 +39,7 @@ async function handleBuyClick(condition) {
     let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
     let conditions = JSON.parse(localStorage.getItem('conditions')) || [];
 
-    shoppingCart.push(bookToAdd);
+    shoppingCart.push(myBooks);
     conditions.push(condition);
 
     localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
