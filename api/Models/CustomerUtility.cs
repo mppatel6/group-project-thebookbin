@@ -28,5 +28,39 @@ namespace api.Models
             con.Close();
             return custList;
         }
+
+        public void EditCustomers(Book value){
+            Database db = new Database();
+            using var con = new MySqlConnection(db.cs);
+            con.Open();
+
+            string stm = @"UPDATE customer SET CID = @CID, CustomerEmail = @CustomerEmail, CustomerPassword = @CustomerPassword, CustomerTokenAmount = @CustomerTokenAmount;";
+            using var cmd = new MySqlCommand(stm, con);
+
+            cmd.Parameters.AddWithValue("@CID", value.CID);
+            cmd.Parameters.AddWithValue("@CustomerEmail", value.CustomerEmail);
+            cmd.Parameters.AddWithValue("@CustomerPassword", value.CustomerPassword);
+            cmd.Parameters.AddWithValue("@CustomerTokenAmount", value.CustomerTokenAmount);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+        }
+
+        public void AddCustomers(Book value){
+            Database db = new Database();
+            using var con = new MySqlConnection(db.cs);
+            con.Open();
+
+            string stm = @"INSERT INTO customer(CID, CustomerEmail, CustomerPassword, CustomerTokenAmount) VALUES(@CID, @CustomerEmail, @CustomerPassword, @CustomerTokenAmount);";
+            using var cmd = new MySqlCommand(stm, con);
+
+            cmd.Parameters.AddWithValue("@CID", value.CID);
+            cmd.Parameters.AddWithValue("@CustomerEmail", value.CustomerEmail);
+            cmd.Parameters.AddWithValue("@CustomerPassword", value.CustomerPassword);
+            cmd.Parameters.AddWithValue("@CustomerTokenAmount", value.CustomerTokenAmount);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+        }
     }
 }
