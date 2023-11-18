@@ -29,7 +29,7 @@ namespace api.Models
             return custList;
         }
 
-        public void EditCustomers(Book value){
+        public void EditCustomers(Customer value){
             Database db = new Database();
             using var con = new MySqlConnection(db.cs);
             con.Open();
@@ -46,7 +46,7 @@ namespace api.Models
             cmd.ExecuteNonQuery();
         }
 
-        public void AddCustomers(Book value){
+        public void AddCustomers(Customer value){
             Database db = new Database();
             using var con = new MySqlConnection(db.cs);
             con.Open();
