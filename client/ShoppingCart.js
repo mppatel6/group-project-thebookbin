@@ -32,6 +32,7 @@ async function getCustomers(){
 async function displayCartDetails() {
     let cartItemsList = document.getElementById('cartItemsList');
     let cartItemCount = document.getElementById('cartItemCount');
+    let totalPrice = 0; // Initialize total price
     
     cartItemsList.innerHTML = ''; // Clear previous content
 
@@ -54,15 +55,39 @@ async function displayCartDetails() {
             `;
 
             cartItemsList.appendChild(listItem);
+
+            // Calculate and add the price to the total
+            totalPrice += calculatePrice(book, conditions[index]);
         });
 
         cartItemCount.textContent = shoppingCart.length; // Update the cart item count
+
+        // Display total price
+        cartItemsList.innerHTML += `<li class="list-group-item d-flex justify-content-between">
+            <span>Total</span>
+            <strong>$${totalPrice.toFixed(2)}</strong>
+        </li>`;
     } else {
         // Display a message if the cart is empty
         cartItemsList.innerHTML = '<li class="list-group-item">Your shopping cart is empty.</li>';
         cartItemCount.textContent = '0';
     }
 }
+
+// Function to calculate the price based on condition
+function calculatePrice(book, condition) {
+    if (condition === 'NEW') {
+        return book.newPrice;
+    } else if (condition === 'GOOD') {
+        return book.goodPrice;
+    } else if (condition === 'POOR') {
+        return book.poorPrice;
+    } else {
+        return 0;
+    }
+}
+
+
 
 
 
