@@ -1,7 +1,8 @@
-// ShoppingCart.js
-
 let shoppingCart = [];
 let conditions = [];
+let Customers = [];
+const url = "http://localhost:5263/api/Customer"
+
 
 shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
 conditions = JSON.parse(localStorage.getItem('conditions'));
@@ -9,11 +10,26 @@ conditions = JSON.parse(localStorage.getItem('conditions'));
 console.log(shoppingCart);
 console.log(conditions);
 
-function handleOnLoad() {
+async function handleOnLoad() {
+    fetchCustomers()
     displayCartDetails();
 }
 
-function displayCartDetails() {
+async function fetchCustomers(){
+    Customers = await getCustomers()
+    console.log(Customers)
+
+}
+
+async function getCustomers(){
+    let response = await fetch(url)
+    let customers = await response.json()
+
+    return await customers
+}
+
+
+async function displayCartDetails() {
     let cartItemsList = document.getElementById('cartItemsList');
     let cartItemCount = document.getElementById('cartItemCount');
     
@@ -48,7 +64,28 @@ function displayCartDetails() {
     }
 }
 
-function checkout() {
-    // Your checkout logic here
-    console.log('Checkout button clicked');
+
+
+async function checkout() {
+    // Get form values
+    let firstName = document.getElementById('firstName').value;
+    let lastName = document.getElementById('lastName').value;
+    let email = document.getElementById('email').value;
+    let address = document.getElementById('address').value;
+    let country = document.getElementById('country').value;
+    let state = document.getElementById('state').value;
+    let zip = document.getElementById('zip').value;
+
+    // You can now use these values as needed in your checkout logic
+    console.log('First Name:', firstName);
+    console.log('Last Name:', lastName);
+    console.log('Email:', email);
+    console.log('Address:', address);
+    console.log('Country:', country);
+    console.log('State:', state);
+    console.log('Zip:', zip);
+
+    debugger
+    // Your additional checkout logic here
 }
+
