@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using api.Models;
 
 namespace api.Controllers
 {
@@ -13,14 +14,15 @@ namespace api.Controllers
     {
         // GET: api/Orders
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<Order> Get()
         {
-            return new string[] { "value1", "value2" };
+            OrderUtility readOrder = new OrderUtility();
+            return readOrder.ReadOrders();
         }
 
         // GET: api/Orders/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "GetOrder")]
+        public string GetOrder(int id)
         {
             return "value";
         }
