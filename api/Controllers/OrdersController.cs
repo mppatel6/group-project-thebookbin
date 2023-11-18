@@ -29,14 +29,18 @@ namespace api.Controllers
 
         // POST: api/Orders
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Order value)
         {
+            OrderUtility addOrder = new OrderUtility();
+            addOrder.AddOrders(value);
         }
 
         // PUT: api/Orders/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Order value)
         {
+            OrderUtility editOrder = new OrderUtility();
+            editOrder.EditOrders(value);
         }
 
         // DELETE: api/Orders/5
