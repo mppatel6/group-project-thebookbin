@@ -34,7 +34,7 @@ namespace api.Models
             using var con = new MySqlConnection(db.cs);
             con.Open();
 
-            string stm = @"UPDATE customer SET CID = @CID, CustomerEmail = @CustomerEmail, CustomerPassword = @CustomerPassword, CustomerTokenAmount = @CustomerTokenAmount;";
+            string stm = @"UPDATE customer SET CID = @CID, CustomerEmail = @CustomerEmail, CustomerPassword = @CustomerPassword, CustomerTokenAmount = @CustomerTokenAmount WHERE CID = @CID;";
             using var cmd = new MySqlCommand(stm, con);
 
             cmd.Parameters.AddWithValue("@CID", value.CID);

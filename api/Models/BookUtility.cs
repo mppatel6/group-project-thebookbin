@@ -42,7 +42,7 @@ namespace api.Models
             using var con = new MySqlConnection(db.cs);
             con.Open();
 
-            string stm = @"UPDATE book SET BookID = @BookID, BookName = @BookName, BookAuthor = @BookAuthor, BookGenre = @BookGenre, BookDescription = @BookDescription, BookImage = @BookImage, NewQuantity = @NewQuantity, NewPrice = @NewPrice, GoodQuantity = @GoodQuantity, GoodPrice = @GoodPrice, PoorQuantity = @PoorQuantity, PoorPrice = @PoorPrice, AdminID = @AdminID;";
+            string stm = @"UPDATE book SET BookID = @BookID, BookName = @BookName, BookAuthor = @BookAuthor, BookGenre = @BookGenre, BookDescription = @BookDescription, BookImage = @BookImage, NewQuantity = @NewQuantity, NewPrice = @NewPrice, GoodQuantity = @GoodQuantity, GoodPrice = @GoodPrice, PoorQuantity = @PoorQuantity, PoorPrice = @PoorPrice, AdminID = @AdminID WHERE BookID = @BookID;";
             using var cmd = new MySqlCommand(stm, con);
 
             cmd.Parameters.AddWithValue("@BookID", value.BookID);

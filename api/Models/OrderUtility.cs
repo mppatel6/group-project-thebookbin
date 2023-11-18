@@ -41,7 +41,7 @@ namespace api.Models
             using var con = new MySqlConnection(db.cs);
             con.Open();
 
-            string stm = @"UPDATE orders SET OrderID = @OrderID, PurchaseQty = @PurchaseQty, BookID = @BookID, CID = @CID, CustomerEmail = @CustomerEmail, CustomerFName = @CustomerFName, CustomerLName = @CustomerLName, CustomerAddress = @CustomerAddress, Country = @Country, State = @State, Zipcode = @Zipcode;";
+            string stm = @"UPDATE orders SET OrderID = @OrderID, PurchaseQty = @PurchaseQty, BookID = @BookID, CID = @CID, CustomerEmail = @CustomerEmail, CustomerFName = @CustomerFName, CustomerLName = @CustomerLName, CustomerAddress = @CustomerAddress, Country = @Country, State = @State, Zipcode = @Zipcode WHERE OrderID = @OrderID;";
             using var cmd = new MySqlCommand(stm, con);
 
             cmd.Parameters.AddWithValue("@OrderID", value.OrderID);
