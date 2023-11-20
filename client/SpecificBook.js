@@ -22,7 +22,7 @@ async function createBook(myBooks){
                 <h3>${myBooks.bookName}</h3>
                 <p>Author: ${myBooks.bookAuthor}</p>
                 <p>Genre: ${myBooks.bookGenre}</p>
-                <div class="prices">)
+                <div class="prices">
                     <p id="newPrice">New: $${myBooks.newPrice} (${myBooks.newQuantity} available) <button onclick="handleBuyClick('NEW')">Add to Cart</button></p>
                     <p id="goodPrice">Good: $${myBooks.goodPrice} (${myBooks.goodQuantity} available) <button onclick="handleBuyClick('GOOD')">Add to Cart</button></p>
                     <p id="poorPrice">Poor: $${myBooks.poorPrice} (${myBooks.poorQuantity} available) <button onclick="handleBuyClick('POOR')">Add to Cart</button></p>
