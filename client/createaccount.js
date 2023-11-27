@@ -1,6 +1,5 @@
 const url = "http://localhost:5263/api/Customer"
 
-
 async function handleCreateAccount() {
     let customer = {
         CID: 0,
@@ -9,11 +8,18 @@ async function handleCreateAccount() {
         CustomerTokenAmount: 0
     }
 
-    await fetch(url, {
+    const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(customer),
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
     })
+
+    if (response.ok) {
+        alert("Account created successfully!")
+        window.location.href = "customerlogin.html"
+    } else {
+        alert("Account creation failed. Please try again.")
+    }
 }
