@@ -37,30 +37,33 @@ namespace api.Models
             return bookList;
         }
 
-        public void AddBook(Book book) {
-            Database db = new Database();
-            using var con = new MySqlConnection(db.cs);
-            con.Open();
+        public void AddBook(Book book)
+{
+    Database db = new Database();
+    using var con = new MySqlConnection(db.cs);
+    con.Open();
 
-            string checkQuery = "SELECT * FROM book WHERE BookName = @BookName AND BookAuthor = @BookAuthor;";
-            using var checkCmd = new MySqlCommand(checkQuery, con);
-            checkCmd.Parameters.AddWithValue("@BookName", book.BookName);
-            checkCmd.Parameters.AddWithValue("@BookAuthor", book.BookAuthor);
+    string checkQuery = "SELECT * FROM book WHERE BookName = @BookName AND BookAuthor = @BookAuthor;";
+    using var checkCmd = new MySqlCommand(checkQuery, con);
+    checkCmd.Parameters.AddWithValue("@BookName", book.BookName);
+    checkCmd.Parameters.AddWithValue("@BookAuthor", book.BookAuthor);
 
-            using MySqlDataReader reader = checkCmd.ExecuteReader();
+    using MySqlDataReader reader = checkCmd.ExecuteReader();
 
-            if (reader.Read()) {
-                reader.Close(); 
-                UpdateQuantities(book, con);
-            }
-            else {
-                
-                reader.Close(); 
-                AddBook(book, con);
-            }
+    if (reader.Read())
+    {
+        reader.Close();
+        throw new Exception("Book with the same name and author already exists.");
+    }
+    else
+    {
+        reader.Close();
+        AddBook(book, con);
+    }
 
-            con.Close();
-        }
+    con.Close();
+}
+
 
         public void EditBook(Book value) {
             Database db = new Database();
@@ -90,17 +93,29 @@ namespace api.Models
 
 
         private void UpdateQuantities(Book book, MySqlConnection con) {
-            string updateQuery = @"UPDATE book SET NewQuantity = NewQuantity + @NewQuantity, GoodQuantity = GoodQuantity + @GoodQuantity, PoorQuantity = PoorQuantity + @PoorQuantity WHERE BookName = @BookName AND BookAuthor = @BookAuthor;";
-            using var cmd = new MySqlCommand(updateQuery, con);
+    string updateQuery = @"UPDATE book 
+                           SET NewQuantity = NewQuantity + @NewQuantity,
+                               GoodQuantity = GoodQuantity + @GoodQuantity,
+                               PoorQuantity = PoorQuantity + @PoorQuantity,
+                               NewPrice = CASE WHEN @NewQuantity > 0 AND @NewPrice >= 0 THEN @NewPrice ELSE NewPrice END,
+                               GoodPrice = CASE WHEN @GoodQuantity > 0 AND @GoodPrice >= 0 THEN @GoodPrice ELSE GoodPrice END,
+                               PoorPrice = CASE WHEN @PoorQuantity > 0 AND @PoorPrice >= 0 THEN @PoorPrice ELSE PoorPrice END
+                           WHERE BookName = @BookName AND BookAuthor = @BookAuthor;";
 
-            cmd.Parameters.AddWithValue("@NewQuantity", book.NewQuantity);
-            cmd.Parameters.AddWithValue("@GoodQuantity", book.GoodQuantity);
-            cmd.Parameters.AddWithValue("@PoorQuantity", book.PoorQuantity);
-            cmd.Parameters.AddWithValue("@BookName", book.BookName);
-            cmd.Parameters.AddWithValue("@BookAuthor", book.BookAuthor);
+    using var cmd = new MySqlCommand(updateQuery, con);
 
-            cmd.ExecuteNonQuery();
-        }
+    cmd.Parameters.AddWithValue("@NewQuantity", book.NewQuantity);
+    cmd.Parameters.AddWithValue("@GoodQuantity", book.GoodQuantity);
+    cmd.Parameters.AddWithValue("@PoorQuantity", book.PoorQuantity);
+    cmd.Parameters.AddWithValue("@NewPrice", book.NewPrice >= 0 ? book.NewPrice : (object)DBNull.Value);
+    cmd.Parameters.AddWithValue("@GoodPrice", book.GoodPrice >= 0 ? book.GoodPrice : (object)DBNull.Value);
+    cmd.Parameters.AddWithValue("@PoorPrice", book.PoorPrice >= 0 ? book.PoorPrice : (object)DBNull.Value);
+    cmd.Parameters.AddWithValue("@BookName", book.BookName);
+    cmd.Parameters.AddWithValue("@BookAuthor", book.BookAuthor);
+
+    cmd.ExecuteNonQuery();
+}
+
 
         private void AddBook(Book book, MySqlConnection con) {
             string insertQuery = @"INSERT INTO book (BookName, BookAuthor, BookGenre, BookDescription, BookImage, NewQuantity, NewPrice, GoodQuantity, GoodPrice, PoorQuantity, PoorPrice, AdminID) VALUES(@BookName, @BookAuthor, @BookGenre, @BookDescription, @BookImage, @NewQuantity, @NewPrice, @GoodQuantity, @GoodPrice, @PoorQuantity, @PoorPrice, @AdminID);";

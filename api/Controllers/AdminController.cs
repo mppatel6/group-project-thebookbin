@@ -12,20 +12,30 @@ namespace api.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
-        // POST: api/TradeIn
-        [HttpPost]
-        public IActionResult PostTradeInBook([FromBody] Book book)
-        {
-            try {
-                BookUtility bookUtility = new BookUtility();
-                bookUtility.AddBook(book); 
+        // POST: api/Admin/AddBook
+        [HttpPost("AddBook")]
+public IActionResult PostBook([FromBody] Book book)
+{
+    try
+    {
+        BookUtility bookUtility = new BookUtility();
+        bookUtility.AddBook(book);
 
-                return Ok("Add book added successfully");
-            }
-            catch (Exception ex) {
-                return StatusCode(500, "Internal Server Error: " + ex.Message);
-            }
-        }
-
+        return Ok("New book added successfully");
     }
+    catch (Exception ex)
+{
+    Console.WriteLine("Exception Message: " + ex.Message);
+
+    if (ex.Message.Contains("Book with the same name and author already exists."))
+    {
+        return BadRequest("Book with the same name and author already exists.");
+    }
+    else
+    {
+        return StatusCode(500, "Internal Server Error: " + ex.Message);
+    }
+}
+}
+}
 }
