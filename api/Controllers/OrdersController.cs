@@ -31,6 +31,7 @@ namespace api.Controllers
         [HttpPost]
         public void Post([FromBody] Order value)
         {
+            System.Console.WriteLine("here\n\n\n\naeyitbgaertguaoe");
             OrderUtility addOrder = new OrderUtility();
             addOrder.AddOrders(value);
         }
