@@ -56,30 +56,30 @@ namespace api.Models
             cmd.ExecuteNonQuery();
         }
 
-       public void AddOrders(Order value){
-    Database db = new Database();
-    using var con = new MySqlConnection(db.cs);
-    con.Open();
+        public void AddOrders(Order value){
+            Database db = new Database();
+            using var con = new MySqlConnection(db.cs);
+            con.Open();
 
-    string stm = @"INSERT INTO orders(CID, CustomerEmail, CustomerFName, CustomerLName, CustomerAddress, Country, State, Zipcode) VALUES(@CID, @CustomerEmail, @CustomerFName, @CustomerLName, @CustomerAddress, @Country, @State, @Zipcode);";
-    using var cmd = new MySqlCommand(stm, con);
+            string stm = @"INSERT INTO orders(CID, CustomerEmail, CustomerFName, CustomerLName, CustomerAddress, Country, State, Zipcode) VALUES(@CID, @CustomerEmail, @CustomerFName, @CustomerLName, @CustomerAddress, @Country, @State, @Zipcode);";
+            using var cmd = new MySqlCommand(stm, con);
 
-    // Handle CID as DBNull.Value if it's null
-    var temp = !string.IsNullOrEmpty(Convert.ToString(value.CID)) ? value.CID : (object)DBNull.Value;
-    cmd.Parameters.AddWithValue("@CID", temp);
+            // Handle CID as DBNull.Value if it's null
+            var temp = !string.IsNullOrEmpty(Convert.ToString(value.CID)) ? value.CID : (object)DBNull.Value;
+            cmd.Parameters.AddWithValue("@CID", temp);
 
-    // Add other parameters as usual
-    cmd.Parameters.AddWithValue("@CustomerEmail", value.CustomerEmail);
-    cmd.Parameters.AddWithValue("@CustomerFName", value.CustomerFName);
-    cmd.Parameters.AddWithValue("@CustomerLName", value.CustomerLName);
-    cmd.Parameters.AddWithValue("@CustomerAddress", value.CustomerAddress);
-    cmd.Parameters.AddWithValue("@Country", value.Country);
-    cmd.Parameters.AddWithValue("@State", value.State);
-    cmd.Parameters.AddWithValue("@Zipcode", value.Zipcode);
+            // Add other parameters as usual
+            cmd.Parameters.AddWithValue("@CustomerEmail", value.CustomerEmail);
+            cmd.Parameters.AddWithValue("@CustomerFName", value.CustomerFName);
+            cmd.Parameters.AddWithValue("@CustomerLName", value.CustomerLName);
+            cmd.Parameters.AddWithValue("@CustomerAddress", value.CustomerAddress);
+            cmd.Parameters.AddWithValue("@Country", value.Country);
+            cmd.Parameters.AddWithValue("@State", value.State);
+            cmd.Parameters.AddWithValue("@Zipcode", value.Zipcode);
 
-    cmd.Prepare();
-    cmd.ExecuteNonQuery();
-}
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+        }
 
     }
 }

@@ -7,6 +7,20 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" type ="text/css" href="./resources/css/index.css">
     <title>Home Page</title>
+
+    <style>
+        #welcomeMessage {
+            color: white;
+            text-align: center;
+            margin-top: 20px; /* Adjust the margin as needed */
+            font-size: 24px; /* Adjust the font size as needed */
+        }
+
+        #logoutButton {
+            margin-top: 10px;
+            align-items: center;
+        }
+    </style>
 </head>
 <body class="body" style="background-image: url('./resources/img/bookbinbackground.jpeg');">
     <header>
@@ -42,7 +56,6 @@
             </div>
         </nav>
     </header>
-    
         <div class="welcome-text" style="margin-top: 100px;"> 
             <div class="welcome-container">
                 <p style="font-size: 26px;">Welcome to The Book Bin, your go-to destination for quality used books in Tuscaloosa, Alabama.</p>
@@ -53,9 +66,45 @@
         <div class="text-center" style="margin-top: 10px;">
             <a href="browse.html" class="btn custom-button" style="font-size: 20px;">Browse our Selection</a>
         </div>
+        <h1 id="welcomeMessage"></h1>
+        <!-- ... (your existing HTML) ... -->
 
+<button id="logoutButton" class="btn btn-danger mt-3 mx-auto d-block" style="display: none;">Logout</button>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const logoutButton = document.getElementById('logoutButton');
 
+        // Check if user is logged in
+        const email = localStorage.getItem('email');
+        if (email) {
+            welcomeMessage.textContent = `Welcome, ${email}!`;
+
+            // Show the logout button
+            logoutButton.style.display = 'block';
+
+            // Add click event listener to logout button
+            logoutButton.addEventListener('click', function () {
+                // Clear local storage
+                localStorage.removeItem('email');
+                localStorage.removeItem('password');
+
+                // Hide the welcome message and logout button
+                welcomeMessage.textContent = '';
+                logoutButton.style.display = 'none';
+
+                // You can also add a message or other actions after logging out
+                console.log('User logged out successfully');
+            });
+        } else {
+            // Hide the logout button if no user is logged in
+            logoutButton.style.display = 'none';
+        }
+    });
+</script>
+
+<!-- ... (your existing HTML) ... -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
