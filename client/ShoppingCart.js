@@ -108,71 +108,207 @@ function calculatePrice(book, condition) {
     }
 }
 
-async function checkout() {
-    let firstName = document.getElementById('firstName').value;
-    let lastName = document.getElementById('lastName').value;
-    let email = document.getElementById('email').value;
-    let address = document.getElementById('address').value;
-    let country = document.getElementById('country').value;
-    let state = document.getElementById('state').value;
-    let zip = document.getElementById('zip').value;
+async function checkout(){
+    const firstName = document.getElementById("firstName").value;
+    const lastName = document.getElementById("lastName").value;
+    const email = document.getElementById("email").value;
+    const address = document.getElementById("address").value;
+    const country = document.getElementById("country").value;
+    const state = document.getElementById("state").value;
+    const zip = document.getElementById("zip").value;
 
-    // Create the order object
-    let order = {
-        OrderID: 0, // Let the server handle the auto-increment
-        CID: null,
-        CustomerEmail: email,
-        CustomerFName: firstName,
-        CustomerLName: lastName,
-        CustomerAddress: address,
-        Country: country,
-        State: state,
-        Zipcode: zip
+    const order = {
+        orderID: 0, // Assuming you may want to set this on the server or based on some logic
+        cid: null, // Set to null for now, you may assign a value based on your logic
+        customerEmail: email,
+        customerFName: firstName,
+        customerLName: lastName,
+        customerAddress: address,
+        country: country,
+        state: state,
+        zipcode: zip,
     };
 
-    for (let i = 0; i < Customers.length; i++) {
-        console.log(Customers[i])
-        if (Customers[i].customerEmail === email) {
-            order.CID = Customers[i].cid;
-            break;
-        }
+    const foundCustomer = Customers.find(customer => customer.customerEmail === order.customerEmail);
+    if (foundCustomer) {
+        order.cid = foundCustomer.cid;
     }
-
     console.log(order)
-    console.log(order.CID)
+    debugger
+    try {
+        const response = await fetch(ourl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(order),
+        });
 
-    await fetch(ourl, {
-        method: "POST",
-        body: JSON.stringify(order),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
-    });
 
-    // let createdOrder = await orderResponse.json();
-    // let orderID = createdOrder.OrderID;
+        const responseData = await response.json();
 
-    // console.log("OrderID:", orderID);
-
-    // debugger
-    // // Iterate through each book in the shopping cart and create an order detail
-    // for (let i = 0; i < shoppingCart.length; i++) {
-    //     let book = shoppingCart[i];
-
-    //     let orderDetail = {
-    //         OrderDetailID: 0, // Let the server handle the auto-increment
-    //         OrderID: orderID, // Use the OrderID from the created order
-    //         BookID: book.BookID, // Replace BookID with the correct property from your book object
-    //         // Add other properties for order detail as needed
-    //     };
-
-    //     // Make a POST request to create the order detail
-    //     await fetch(odurl, {
-    //         method: "POST",
-    //         body: JSON.stringify(orderDetail),
-    //         headers: {
-    //             "Content-type": "application/json; charset=UTF-8"
-    //         }
-    //     });
-    // }
+        // Handle the response data if needed
+        console.log('Order created successfully:', responseData);
+        debugger
+    } catch (error) {
+        // Handle errors here
+        console.log('Error creating order:', error);
+        debugger
+    }
+    debugger
 }
+
+// async function checkout() {
+//     const apiUrl = 'http://localhost:5263/api/Orders';
+
+// // const postData = {
+// //   orderID: 1,
+// //   cid: 1,
+// //   customerEmail: document.getElementById('email').value,
+// //   customerFName: document.getElementById('firstName').value,
+// //   customerLName: document.getElementById('lastName').value,
+// //   customerAddress: document.getElementById('address').value,
+// //   country: document.getElementById('country').value,
+// //   state: document.getElementById('state').value,
+// //   zipcode: document.getElementById('zip').value,
+// // };
+
+// // const postData = 
+// // {
+// //     orderID: 1,
+// //     cid: 1,
+// //     customerEmail: "manav@email.com",
+// //     customerFName: "Manav222222",
+// //     customerLName: "Patel",
+// //     customerAddress: "4225 US Highway 231",
+// //     country: "USA",
+// //     state: "Alabama",
+// //     zipcode: "36093"
+// //   }
+// //   console.log(postData)
+// // console.log(document.getElementById('email').value)
+// // console.log(document.getElementById('firstName').value)
+// // console.log(document.getElementById('lastName').value)
+// // console.log(document.getElementById('address').value)
+// // console.log(document.getElementById('country').value)
+// // console.log(document.getElementById('state').value)
+// // console.log(document.getElementById('zip').value)
+// // debugger
+
+// // for (let i = 0; i < Customers.length; i++) {
+// //     if (Customers[i].customerEmail === postData.customerEmail) {
+// //         postData.cid = Customers[i].cid;
+
+// //     }else[
+// //         postData.cid = 1
+// //     ]
+
+// // }
+
+
+// fetch(apiUrl, {
+//   method: 'POST',
+//   headers: {
+//     'Accept': '*/*',
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify(postData)
+// })
+//   .then(response => {
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! Status: ${response.status}`);
+//     }
+//     return response.json();
+//   })
+//   .then(data => {
+//     // Handle the response data here
+//     console.log('Response:', data);
+//   })
+//   .catch(error => {
+//     // Handle errors here
+//     console.error('Error:', error);
+//   });
+
+    
+//     // let firstName = document.getElementById('firstName').value;
+//     // let lastName = document.getElementById('lastName').value;
+//     // let email = document.getElementById('email').value;
+//     // let address = document.getElementById('address').value;
+//     // let country = document.getElementById('country').value;
+//     // let state = document.getElementById('state').value;
+//     // let zip = document.getElementById('zip').value;
+
+
+//     // let order = {
+//     //     orderID: 0, 
+//     //     cid: null,
+//     //     customerEmail: email,
+//     //     customerFName: firstName,
+//     //     customerLName: lastName,
+//     //     customerAddress: address,
+//     //     country: country,
+//     //     state: state,
+//     //     zipcode: zip
+//     // };
+
+
+//     // let order1 = {
+//     //     "orderID": 1,
+//     //     "cid": 1,
+//     //     "customerEmail": "manav@email.com",
+//     //     "customerFName": "Manav",
+//     //     "customerLName": "Patel",
+//     //     "customerAddress": "4225 US Highway 231",
+//     //     "country": "USA",
+//     //     "state": "Alabama",
+//     //     "zipcode": "36093"
+//     //   }
+
+
+
+//     // console.log(order1)
+//     // debugger
+
+    
+
+//     // console.log(order.cid)
+    
+//     // await fetch(ourl, {
+//     //     method: "POST",
+//     //     headers: {
+//     //         accept: "/",
+//     //         "Content-type": "application/json"
+//     //     },
+//     //     body: JSON.stringify(order1)
+//     // });
+
+//     // let createdOrder = await orderResponse.json();
+//     // let orderID = createdOrder.OrderID;
+
+//     // console.log("OrderID:", orderID);
+
+//     // debugger
+//     // // Iterate through each book in the shopping cart and create an order detail
+//     // for (let i = 0; i < shoppingCart.length; i++) {
+//     //     let book = shoppingCart[i];
+
+//     //     let orderDetail = {
+//     //         OrderDetailID: 0, // Let the server handle the auto-increment
+//     //         OrderID: orderID, // Use the OrderID from the created order
+//     //         BookID: book.BookID, // Replace BookID with the correct property from your book object
+//     //         // Add other properties for order detail as needed
+//     //     };
+
+//     //     // Make a POST request to create the order detail
+//     //     await fetch(odurl, {
+//     //         method: "POST",
+//     //         body: JSON.stringify(orderDetail),
+//     //         headers: {
+//     //             "Content-type": "application/json; charset=UTF-8"
+//     //         }
+//     //     });
+//     // }
+// }
