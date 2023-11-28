@@ -15,7 +15,7 @@ namespace api.Models
             using var cmd = new MySqlCommand(stm, con);
             using MySqlDataReader rdr = cmd.ExecuteReader();
 
-            while(rdr.Read()){
+            while(rdr.Read()) {
                 var bookData = new Book{
                     BookID = rdr.GetInt32(0),
                     BookName = rdr.GetString(1),
@@ -37,7 +37,32 @@ namespace api.Models
             return bookList;
         }
 
-        public void EditBook(Book value){
+        public void AddBook(Book book) {
+            Database db = new Database();
+            using var con = new MySqlConnection(db.cs);
+            con.Open();
+
+            string checkQuery = "SELECT * FROM book WHERE BookName = @BookName AND BookAuthor = @BookAuthor;";
+            using var checkCmd = new MySqlCommand(checkQuery, con);
+            checkCmd.Parameters.AddWithValue("@BookName", book.BookName);
+            checkCmd.Parameters.AddWithValue("@BookAuthor", book.BookAuthor);
+
+            using MySqlDataReader reader = checkCmd.ExecuteReader();
+
+            if (reader.Read()) {
+                reader.Close(); 
+                UpdateQuantities(book, con);
+            }
+            else {
+                
+                reader.Close(); 
+                AddBook(book, con);
+            }
+
+            con.Close();
+        }
+
+        public void EditBook(Book value) {
             Database db = new Database();
             using var con = new MySqlConnection(db.cs);
             con.Open();
@@ -63,32 +88,38 @@ namespace api.Models
             cmd.ExecuteNonQuery();
         }
 
-        public void AddBook(Book value){
-            Database db = new Database();
-            using var con = new MySqlConnection(db.cs);
-            con.Open();
 
-            string stm = @"INSERT INTO book(BookID, BookName, BookAuthor, BookGenre, BookDescription, BookImage, NewQuantity, NewPrice, GoodQuantity, GoodPrice, PoorQuantity, PoorPrice, AdminID) VALUES(@BookID, @BookName, @BookAuthor, @BookGenre, @BookDescription, @BookImage, @NewQuantity, @NewPrice, @GoodQuantity, @GoodPrice, @PoorQuantity, @PoorPrice, @AdminID);";
-            using var cmd = new MySqlCommand(stm, con);
+        private void UpdateQuantities(Book book, MySqlConnection con) {
+            string updateQuery = @"UPDATE book SET NewQuantity = NewQuantity + @NewQuantity, GoodQuantity = GoodQuantity + @GoodQuantity, PoorQuantity = PoorQuantity + @PoorQuantity WHERE BookName = @BookName AND BookAuthor = @BookAuthor;";
+            using var cmd = new MySqlCommand(updateQuery, con);
 
-            cmd.Parameters.AddWithValue("@BookID", value.BookID);
-            cmd.Parameters.AddWithValue("@BookName", value.BookName);
-            cmd.Parameters.AddWithValue("@BookAuthor", value.BookAuthor);
-            cmd.Parameters.AddWithValue("@BookGenre", value.BookGenre);
-            cmd.Parameters.AddWithValue("@BookDescription", value.BookDescription);
-            cmd.Parameters.AddWithValue("@BookImage", value.BookImage);
-            cmd.Parameters.AddWithValue("@NewQuantity", value.NewQuantity);
-            cmd.Parameters.AddWithValue("@NewPrice", value.NewPrice);
-            cmd.Parameters.AddWithValue("@GoodQuantity", value.GoodQuantity);
-            cmd.Parameters.AddWithValue("@GoodPrice", value.GoodPrice);
-            cmd.Parameters.AddWithValue("@PoorQuantity", value.PoorQuantity);
-            cmd.Parameters.AddWithValue("@PoorPrice", value.PoorPrice);
-            cmd.Parameters.AddWithValue("@AdminID", value.AdminID);
+            cmd.Parameters.AddWithValue("@NewQuantity", book.NewQuantity);
+            cmd.Parameters.AddWithValue("@GoodQuantity", book.GoodQuantity);
+            cmd.Parameters.AddWithValue("@PoorQuantity", book.PoorQuantity);
+            cmd.Parameters.AddWithValue("@BookName", book.BookName);
+            cmd.Parameters.AddWithValue("@BookAuthor", book.BookAuthor);
 
-            cmd.Prepare();
             cmd.ExecuteNonQuery();
         }
 
+        private void AddBook(Book book, MySqlConnection con) {
+            string insertQuery = @"INSERT INTO book (BookName, BookAuthor, BookGenre, BookDescription, BookImage, NewQuantity, NewPrice, GoodQuantity, GoodPrice, PoorQuantity, PoorPrice, AdminID) VALUES(@BookName, @BookAuthor, @BookGenre, @BookDescription, @BookImage, @NewQuantity, @NewPrice, @GoodQuantity, @GoodPrice, @PoorQuantity, @PoorPrice, @AdminID);";
+            using var cmd = new MySqlCommand(insertQuery, con);
 
+            cmd.Parameters.AddWithValue("@BookName", book.BookName);
+            cmd.Parameters.AddWithValue("@BookAuthor", book.BookAuthor);
+            cmd.Parameters.AddWithValue("@BookGenre", book.BookGenre);
+            cmd.Parameters.AddWithValue("@BookDescription", book.BookDescription);
+            cmd.Parameters.AddWithValue("@BookImage", book.BookImage);
+            cmd.Parameters.AddWithValue("@NewQuantity", book.NewQuantity);
+            cmd.Parameters.AddWithValue("@NewPrice", book.NewPrice);
+            cmd.Parameters.AddWithValue("@GoodQuantity", book.GoodQuantity);
+            cmd.Parameters.AddWithValue("@GoodPrice", book.GoodPrice);
+            cmd.Parameters.AddWithValue("@PoorQuantity", book.PoorQuantity);
+            cmd.Parameters.AddWithValue("@PoorPrice", book.PoorPrice);
+            cmd.Parameters.AddWithValue("@AdminID", book.AdminID);
+
+            cmd.ExecuteNonQuery();
+        }
     }
 }
