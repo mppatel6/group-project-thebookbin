@@ -34,11 +34,12 @@ async function handleLogin() {
     )
 
     if (foundCustomer) {
-        // localStorage.setItem('email', email)
-        // localStorage.setItem('password', password)
+        localStorage.setItem('email', email)
+        localStorage.setItem('password', password)
+
         console.log("success")
         // Redirect to browse.html
-        // window.location.href = "./browse.html"
+        window.location.href = "./homepage.html"
     } else {
         const errorMessageElement = document.getElementById('errorMessage');
         errorMessageElement.textContent = "Invalid email or password. Please try again.";

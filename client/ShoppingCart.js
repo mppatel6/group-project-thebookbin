@@ -2,6 +2,8 @@ let shoppingCart = [];
 let conditions = [];
 let Customers = [];
 const url = "http://localhost:5263/api/Customer"
+const ourl = "http://localhost:5263/api/Orders"
+const odurl = "http://localhost:5263/api/OrderDetails"
 
 
 shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
@@ -33,7 +35,7 @@ async function displayCartDetails() {
     let cartItemsList = document.getElementById('cartItemsList');
     let cartItemCount = document.getElementById('cartItemCount');
     let totalPrice = 0; // Initialize total price
-    
+
     cartItemsList.innerHTML = ''; // Clear previous content
 
     if (shoppingCart.length > 0) {
@@ -52,6 +54,7 @@ async function displayCartDetails() {
                         conditions[index] === 'POOR' ? `<p>Price: ${book.poorPrice}</p>` : ''
                     }
                 </div>
+                <button class="btn btn-danger btn-sm" onclick="removeBook(${index})">Remove</button>
             `;
 
             cartItemsList.appendChild(listItem);
@@ -74,6 +77,24 @@ async function displayCartDetails() {
     }
 }
 
+// Function to remove a book from the cart
+function removeBook(index) {
+    // Remove the book at the specified index
+    shoppingCart.splice(index, 1);
+
+    // Remove the corresponding condition at the specified index
+    conditions.splice(index, 1);
+
+    // Save the updated cart and conditions to local storage
+    localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+    localStorage.setItem('conditions', JSON.stringify(conditions));
+
+    // Redisplay the cart
+    displayCartDetails();
+}
+
+
+
 // Function to calculate the price based on condition
 function calculatePrice(book, condition) {
     if (condition === 'NEW') {
@@ -87,12 +108,7 @@ function calculatePrice(book, condition) {
     }
 }
 
-
-
-
-
 async function checkout() {
-    // Get form values
     let firstName = document.getElementById('firstName').value;
     let lastName = document.getElementById('lastName').value;
     let email = document.getElementById('email').value;
@@ -101,16 +117,64 @@ async function checkout() {
     let state = document.getElementById('state').value;
     let zip = document.getElementById('zip').value;
 
-    // You can now use these values as needed in your checkout logic
-    console.log('First Name:', firstName);
-    console.log('Last Name:', lastName);
-    console.log('Email:', email);
-    console.log('Address:', address);
-    console.log('Country:', country);
-    console.log('State:', state);
-    console.log('Zip:', zip);
+    // Create the order object
+    let order = {
+        OrderID: 0, // Let the server handle the auto-increment
+        CID: null,
+        CustomerEmail: email,
+        CustomerFName: firstName,
+        CustomerLName: lastName,
+        CustomerAddress: address,
+        Country: country,
+        State: state,
+        Zipcode: zip
+    };
 
-    debugger
-    // Your additional checkout logic here
+    for (let i = 0; i < Customers.length; i++) {
+        console.log(Customers[i])
+        if (Customers[i].customerEmail === email) {
+            order.CID = Customers[i].cid;
+            break;
+        }
+    }
+
+    console.log(order)
+    console.log(order.CID)
+
+    await fetch(ourl, {
+        method: "POST",
+        body: JSON.stringify(order),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+
+    // let createdOrder = await orderResponse.json();
+    // let orderID = createdOrder.OrderID;
+
+    // console.log("OrderID:", orderID);
+
+    // debugger
+    // // Iterate through each book in the shopping cart and create an order detail
+    // for (let i = 0; i < shoppingCart.length; i++) {
+    //     let book = shoppingCart[i];
+
+    //     let orderDetail = {
+    //         OrderDetailID: 0, // Let the server handle the auto-increment
+    //         OrderID: orderID, // Use the OrderID from the created order
+    //         BookID: book.BookID, // Replace BookID with the correct property from your book object
+    //         // Add other properties for order detail as needed
+    //     };
+
+    //     // Make a POST request to create the order detail
+    //     await fetch(odurl, {
+    //         method: "POST",
+    //         body: JSON.stringify(orderDetail),
+    //         headers: {
+    //             "Content-type": "application/json; charset=UTF-8"
+    //         }
+    //     });
+    // }
 }
+
 
