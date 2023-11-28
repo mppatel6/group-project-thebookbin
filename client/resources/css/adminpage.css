@@ -108,6 +108,40 @@ header {
     margin-left: 1000px;
 }
 
+.shadow-overlay {
+    display: none; /* Initially hidden */
+    position: fixed; /* Fixed relative to the viewport */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent backdrop */
+    z-index: 1040; /* Ensure it's below the form container */
+}
+
+.form-container {
+    display: none; /* Initially hidden */
+    position: fixed; /* Fixed relative to the viewport */
+    top: 30%; /* Position it a bit lower from the top */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -10%); /* Centering adjustment */
+    max-width: 500px; /* Maximum width */
+    width: 80%; /* Responsive width */
+    background-color: rgba(255, 255, 255, 0.9); /* White background */
+    padding: 30px; /* Padding inside the box */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow for depth */
+    z-index: 1050; /* Ensuring it's above the shadow overlay */
+    overflow-y: auto; /* Make it scrollable */
+    max-height: 70vh; /* Maximum height */
+}
+
+
+
+
+
+
+
 
 
 

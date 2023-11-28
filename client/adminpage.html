@@ -19,6 +19,20 @@
             height: 100%;
             z-index: -1;
         }
+        .centered-container {
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+        .contact-form-container {
+            padding: 50px;
+            background-color: rgba(255, 255, 255, 0.8);
+            margin-top: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            text-align: center;
+        }
     </style>
 </head>
 <body onload="handleOnLoad()" style="background-image: url('./resources/img/bookbinbackground.jpeg');">
@@ -56,7 +70,58 @@
             </div>
         </nav>
     </header>
+
     <button class="addbookbtn">Add New Book +</button>
+
+<!-- Shadow Overlay (Initially Hidden) -->
+<div class="shadow-overlay" id="shadowOverlay"></div>
+
+<!-- Pop-up Form Container (Initially Hidden) -->
+<div class="form-container" id="addBookForm">
+        <h2>Add New Book</h2>
+        <form>
+            <div class="mb-3">
+                <label for="bookTitle" class="form-label">Book Title</label>
+                <input type="text" class="form-control" id="bookTitle" placeholder="Enter book title">
+            </div>
+            <div class="mb-3">
+                <label for="bookAuthor" class="form-label">Author</label>
+                <input type="text" class="form-control" id="bookAuthor" placeholder="Enter author's name">
+            </div>
+            <div class="mb-3">
+                <label for="bookGenre" class="form-label">Genre</label>
+                <select class="form-select" id="bookGenre">
+                    <option value="">Select Genre</option>
+                    <option value="comedy">Comedy</option>
+                    <option value="action">Action</option>
+                    <option value="romance">Romance</option>
+                    <option value="history">History</option>
+                    <option value="child">Child</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="bookQuality" class="form-label">Quality</label>
+                <select class="form-select" id="bookQuality">
+                    <option value="">Select Quality</option>
+                    <option value="new">New</option>
+                    <option value="good">Good</option>
+                    <option value="poor">Poor</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="bookDescription" class="form-label">Description</label>
+                <textarea class="form-control" id="bookDescription" rows="3" placeholder="Enter book description"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="bookImage" class="form-label">Book Image URL</label>
+                <input type="text" class="form-control" id="bookImage" placeholder="Enter image URL">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+
     <div class="carousel-container">
         <div class="scroll-left" onclick="scrollCarouselLeft()">⟨</div>
         <div class="carousel">
