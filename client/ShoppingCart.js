@@ -77,7 +77,6 @@ async function displayCartDetails() {
     }
 }
 
-// Function to remove a book from the cart
 function removeBook(index) {
     // Remove the book at the specified index
     shoppingCart.splice(index, 1);
@@ -92,8 +91,6 @@ function removeBook(index) {
     // Redisplay the cart
     displayCartDetails();
 }
-
-
 
 // Function to calculate the price based on condition
 function calculatePrice(book, condition) {
