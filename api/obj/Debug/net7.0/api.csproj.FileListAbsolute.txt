@@ -236,3 +236,5 @@
 /Users/manavpatel/Desktop/MIS321/group-project-thebookbin/api/obj/Debug/net7.0/api.pdb
 /Users/manavpatel/Desktop/MIS321/group-project-thebookbin/api/obj/Debug/net7.0/api.genruntimeconfig.cache
 /Users/manavpatel/Desktop/MIS321/group-project-thebookbin/api/obj/Debug/net7.0/ref/api.dll
+/Users/manavpatel/Desktop/MIS321/group-project-thebookbin/api/bin/Debug/net7.0/DotNetEnv.dll
+/Users/manavpatel/Desktop/MIS321/group-project-thebookbin/api/bin/Debug/net7.0/Sprache.dll
