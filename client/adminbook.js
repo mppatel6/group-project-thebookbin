@@ -16,19 +16,20 @@ async function handleOnLoad(){
 async function createBook(myBooks){
     console.log(myBooks)
     let html = `
-    <div class="book-container">
+    <div class="box">
+        <form class="form-admin">
         <img src="${myBooks.bookImage}" alt="${myBooks.bookName}" class="book-image">
-        <div class="book-details">
-            <h3>${myBooks.bookName}</h3>
-            <p>Author: ${myBooks.bookAuthor}</p>
-            <p>Genre: ${myBooks.bookGenre}</p>
-            <div>
-                <button>Edit</button></p>
-                <button>Delete</button></p>
+        <div>
+            <h3 style="display: flex; justify-content: space-around;">${myBooks.bookName}</h3>
+            <p style="display: flex; justify-content: space-around;">Author: ${myBooks.bookAuthor}</p>
+            <p style="display: flex; justify-content: space-around;">Genre: ${myBooks.bookGenre}</p>
+            <div style="display: flex; justify-content: space-around;">
+                <button class="btn btn-primary">Edit</button></p>
+                <button class="btn btn-primary">Delete</button></p>
             </div>
+        </div>
         </div>
     </div>
     `
     document.getElementById('bookbody').innerHTML = html
 }
-

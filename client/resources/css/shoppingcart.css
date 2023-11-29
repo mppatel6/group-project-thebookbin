@@ -10,7 +10,7 @@
     max-width: 400px; 
     padding: 20px;
     margin: auto;
-    background-color: white; 
+    background-color: rgba(255, 255, 255, 0.7); 
     box-shadow: 0 4px 8px black; 
     border-radius: 10px; 
 }
