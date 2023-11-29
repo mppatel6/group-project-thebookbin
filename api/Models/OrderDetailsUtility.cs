@@ -49,10 +49,9 @@ namespace api.Models
             using var con = new MySqlConnection(db.cs);
             con.Open();
 
-            string stm = @"INSERT INTO orderdetails(OrderID, BookID) VALUES(@OrderID, @BookID);";
+            string stm = @"insert into orderdetails(OrderID, BookID) VALUES((select max(OrderID) from orders), @BookID);";
             using var cmd = new MySqlCommand(stm, con);
-
-            cmd.Parameters.AddWithValue("OrderID", value.OrderID);
+            
             cmd.Parameters.AddWithValue("BookID", value.BookID);
 
             cmd.Prepare();

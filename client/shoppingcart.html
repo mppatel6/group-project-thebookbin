@@ -19,7 +19,7 @@
             height: 100%;
             z-index: -1;
         }
-        </style>
+    </style>
 </head>
 <body onload="handleOnLoad()">
     <div class="background-container"></div>
@@ -58,7 +58,7 @@
     </header>
     <div class="box-container">
       <div class="box" style="margin-top: 125px;">
-        <form class="form-signin">
+        <div style="width: 500px">
           <div>
             <h4>
                 <span class="text">Your cart</span>
@@ -68,14 +68,14 @@
                 <!-- Cart items will be dynamically added here -->
             </ul>
           </div>
-        </form>
+        </div>
       </div>
     <div class="box" style="margin-top: 125px;">
-    <form class="form-signin">
-    <form id="checkoutForm" class="needs-validation" novalidate>
+    <form class="form-signin" onsubmit="return false">
+    <form id="checkoutForm" class="needs-validation" novalidate onsubmit="return false">
       <div>
         <h4 class="mb-3">Billing address</h4>
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" novalidate onsubmit="return false">
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="firstName">First name</label>
@@ -149,11 +149,9 @@
               <label class="custom-control-label" for="paypal">Paypal</label>
           </div>
         </div>
-        </form>
           <div style="display: flex; justify-content: space-around; margin-top: 25px;">
               <button class="btn btn-primary btn-lg btn-block" onclick="checkout()">Checkout</button>
           </div>
-        </form>
       </div>
     </div>
 

@@ -1,9 +1,9 @@
 let shoppingCart = [];
 let conditions = [];
 let Customers = [];
-const url = "http://localhost:5263/api/Customer"
-const ourl = "http://localhost:5263/api/Orders"
-const odurl = "http://localhost:5263/api/OrderDetails"
+const url = "https://localhost:5263/api/Customer"
+const ourl = "https://localhost:5263/api/Orders"
+const odurl = "https://localhost:5263/api/OrderDetails"
 
 
 shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
@@ -130,46 +130,45 @@ async function checkout() {
     for (let i = 0; i < Customers.length; i++) {
         console.log(Customers[i])
         if (Customers[i].customerEmail === email) {
-            order.CID = Customers[i].cid;
-            break;
+            order.CID = Customers[i].cid
         }
     }
+
 
     console.log(order)
     console.log(order.CID)
 
-    await fetch(ourl, {
-        method: "POST",
-        body: JSON.stringify(order),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    });
+    // await fetch(ourl, {
+    //     method: "POST",
+    //     body: JSON.stringify(order),
+    //     headers: {
+    //         "Content-type": "application/json; charset=UTF-8"
+    //     }
+    // }).then(async function() {
+    //     console.log("here");
+    //     // Iterate through each book in the shopping cart and create an order detail
+    //     for (let i = 0; i < shoppingCart.length; i++) {
+    //         console.log(shoppingCart)
+    //         let book = shoppingCart[i];
+    
+    //         let orderDetail = {
+    //             OrderDetailID: 0, // Let the server handle the auto-increment
+    //             OrderID: 0, // Use the OrderID from the created order
+    //             BookID: book.bookID, // Replace BookID with the correct property from your book object
+    //             // Add other properties for order detail as needed
+    //         };
+            
+    //         console.log(orderDetail)
+    //         // Make a POST request to create the order detail
+    //         await fetch(odurl, {
+    //             method: "POST",
+    //             body: JSON.stringify(orderDetail),
+    //             headers: {
+    //                 "Content-type": "application/json; charset=UTF-8"
+    //             }
+    //         });
+    //     }
+    // });
 
-    // let createdOrder = await orderResponse.json();
-    // let orderID = createdOrder.OrderID;
-
-    // console.log("OrderID:", orderID);
-
-    // debugger
-    // // Iterate through each book in the shopping cart and create an order detail
-    // for (let i = 0; i < shoppingCart.length; i++) {
-    //     let book = shoppingCart[i];
-
-    //     let orderDetail = {
-    //         OrderDetailID: 0, // Let the server handle the auto-increment
-    //         OrderID: orderID, // Use the OrderID from the created order
-    //         BookID: book.BookID, // Replace BookID with the correct property from your book object
-    //         // Add other properties for order detail as needed
-    //     };
-
-    //     // Make a POST request to create the order detail
-    //     await fetch(odurl, {
-    //         method: "POST",
-    //         body: JSON.stringify(orderDetail),
-    //         headers: {
-    //             "Content-type": "application/json; charset=UTF-8"
-    //         }
-    //     });
-    // }
+    window.location.href = 'receipt.html';
 }

@@ -4,7 +4,7 @@ var ImagePadding = 20
 let BooksUnsort = []
 let Books = []
 let myBooks = []
-const url = "http://localhost:5263/api/Book"
+const url = "https://localhost:5263/api/Book"
 
 async function handleOnLoad(){
     fetchBooks()
