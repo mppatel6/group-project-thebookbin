@@ -136,12 +136,15 @@ async function checkout(){
     console.log(order)
     debugger
     try {
+        const orderdata = JSON.stringify(order)
+        const byteLength = new TextEncoder().encode(orderdata).length
         const response = await fetch(ourl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Content-Length': byteLength.toString(),
             },
-            body: JSON.stringify(order),
+            body: orderdata,
         });
 
         if (!response.ok) {
