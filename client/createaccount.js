@@ -1,4 +1,4 @@
-const url = "http://localhost:5263/api/Customer"
+const url = "https://localhost:5263/api/Customer"
 
 async function handleCreateAccount() {
     let customer = {
