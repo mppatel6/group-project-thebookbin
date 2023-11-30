@@ -74,37 +74,40 @@
     <div class="centered-container">
         <div class="tradein-form-container">
             <h2>Book Trade-In</h2>
-            <form id="tradeInForm">
-                <div class="mb-3">
-                    <label for="bookTitle" class="form-label">Book Title</label>
-                    <input type="text" class="form-control" id="bookTitle" placeholder="Enter book title" required>
-                </div>
-                <div class="mb-3">
-                    <label for="bookAuthor" class="form-label">Author</label>
-                    <input type="text" class="form-control" id="bookAuthor" placeholder="Enter author's name" required>
-                </div>
-                <div class="mb-3">
-                    <label for="bookGenre" class="form-label">Genre</label>
-                    <select class="form-select" id="bookGenre" required>
-                        <option value="">Select Genre</option>
-                        <option value="comedy">Comedy</option>
-                        <option value="action">Action</option>
-                        <option value="romance">Romance</option>
-                        <option value="history">History</option>
-                        <option value="child">Child</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="bookQuality" class="form-label">Quality</label>
-                    <select class="form-select" id="bookQuality" required>
-                        <option value="">Select Quality</option>
-                        <option value="new">New</option>
-                        <option value="good">Good</option>
-                        <option value="poor">Poor</option>
-                    </select>                    
-                </div>
-                <button type="submit" class="btn btn-primary">Submit Trade-In</button>
-            </form>
+            <div id="loginMessage" style="text-align: center; color: red;"></div>
+            <div id="tradeInContainer" style="display: none;">
+                <form id="tradeInForm">
+                    <div class="mb-3">
+                        <label for="bookTitle" class="form-label">Book Title</label>
+                        <input type="text" class="form-control" id="bookTitle" placeholder="Enter book title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bookAuthor" class="form-label">Author</label>
+                        <input type="text" class="form-control" id="bookAuthor" placeholder="Enter author's name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bookGenre" class="form-label">Genre</label>
+                        <select class="form-select" id="bookGenre" required>
+                            <option value="">Select Genre</option>
+                            <option value="comedy">Comedy</option>
+                            <option value="action">Action</option>
+                            <option value="romance">Romance</option>
+                            <option value="history">History</option>
+                            <option value="child">Child</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bookQuality" class="form-label">Quality</label>
+                        <select class="form-select" id="bookQuality" required>
+                            <option value="">Select Quality</option>
+                            <option value="new">New</option>
+                            <option value="good">Good</option>
+                            <option value="poor">Poor</option>
+                        </select>                    
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Trade-In</button>
+                </form>
+            </div>
         </div>
     </div>
     <script src="./TradeIn.js"></script>

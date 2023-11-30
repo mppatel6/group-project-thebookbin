@@ -89,6 +89,7 @@
                 // Clear local storage
                 localStorage.removeItem('email');
                 localStorage.removeItem('password');
+                localStorage.setItem('isLoggedIn', 'false');
 
                 // Hide the welcome message and logout button
                 welcomeMessage.textContent = '';

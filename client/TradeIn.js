@@ -1,8 +1,41 @@
-// TradeIn.js
+// Function to check if the user is logged in
+function isLoggedIn() {
+    return localStorage.getItem('isLoggedIn') === 'true';
+}
 
-document.getElementById("tradeInForm").addEventListener("submit", async function(event){
+// Function to display a message
+function displayMessage(message, type) {
+    const messageDiv = document.createElement("div");
+    messageDiv.textContent = message;
+    messageDiv.className = type === "success" ? "alert alert-success" : "alert alert-danger";
+    messageDiv.style.textAlign = 'center';
+    document.body.appendChild(messageDiv);
+    setTimeout(() => {
+        messageDiv.remove();
+    }, 4000);
+}
+
+// Check if the user is logged in and display the trade-in form accordingly
+const tradeInContainer = document.getElementById('tradeInContainer');
+const loginMessage = document.getElementById('loginMessage');
+
+if (isLoggedIn()) {
+    tradeInContainer.style.display = 'block';
+} else {
+    loginMessage.textContent = "Sorry, you cannot use the trade-in function until you have logged in.";
+}
+
+// Event listener for the trade-in form
+document.getElementById("tradeInForm").addEventListener("submit", async function (event) {
     event.preventDefault();
 
+    if (!isLoggedIn()) {
+        // Display a message to log in first
+        displayMessage("Please log in to use this function", "error");
+        return;
+    }
+
+    // Your existing trade-in form submission logic
     const bookTitle = document.getElementById("bookTitle").value;
     const bookAuthor = document.getElementById("bookAuthor").value;
     const bookGenre = document.getElementById("bookGenre").value;
@@ -69,14 +102,3 @@ document.getElementById("tradeInForm").addEventListener("submit", async function
         displayMessage("Network error", "error");
     }
 });
-
-function displayMessage(message, type) {
-    const messageDiv = document.createElement("div");
-    messageDiv.textContent = message;
-    messageDiv.className = type === "success" ? "alert alert-success" : "alert alert-danger";
-    messageDiv.style.textAlign = 'center';
-    document.body.appendChild(messageDiv);
-    setTimeout(() => {
-        messageDiv.remove();
-    }, 4000);
-}
