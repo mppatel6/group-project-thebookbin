@@ -1,46 +1,51 @@
-const sliders = document.querySelector(".carouselbox")
-var scrollPerClick
-var ImagePadding = 20
-let BooksUnsort = []
-let Books = []
-let myBooks = []
-const url = "https://localhost:5263/api/Book"
+const sliders = document.querySelector(".carouselbox");
+var scrollPerClick;
+var ImagePadding = 20;
+let Books = [];
+let myBooks = [];
+let originalBooks = [];
+const url = "https://localhost:5263/api/Book";
 
-async function handleOnLoad(){
-    fetchBooks()
+async function handleOnLoad() {
+    await fetchBooks();
 }
 
-async function fetchBooks(){
-    Books = await getBooks()
-    console.log(Books)
+async function fetchBooks() {
+    try {
+        Books = await getBooks();
+        console.log('Fetched books:', Books);
 
-    createScroll(Books)
+        originalBooks = [...Books];
+        createScroll(Books);
+    } catch (error) {
+        console.error('Error fetching books:', error);
+    }
 }
 
-async function getBooks(){
-    let response = await fetch(url)
-    let books = await response.json()
+async function getBooks() {
+    let response = await fetch(url);
+    let books = await response.json();
 
-    return await books
+    return books;
 }
 
-async function createScroll(Book){
+async function createScroll(Book) {
     sliders.innerHTML = '';
 
-    Book.map(function(cur, index){
+    Book.map(function (cur, index) {
         sliders.insertAdjacentHTML(
             "beforeend",
-            `<img class = "img-${index} slider-img" src="${cur.bookImage}" onclick="handleImageClick(${index})"/>`
-        )
-    })
+            `<img class="img-${index} slider-img" src="${cur.bookImage}" onclick="handleImageClick(${index})"/>`
+        );
+    });
 
     scrollPerClick = document.querySelector(".img-1").clientWidth + ImagePadding;
 }
 
-async function handleImageClick(index){
-    myBooks.push(Books[index])
-    localStorage.setItem('myBooks', JSON.stringify(Books[index]))
-    window.location.replace("specificbook.html", "_blank")
+async function handleImageClick(index) {
+    myBooks.push(Books[index]);
+    localStorage.setItem('myBooks', JSON.stringify(Books[index]));
+    window.location.replace("specificbook.html", "_blank");
 }
 
 function scrollCarouselLeft() {
@@ -60,35 +65,34 @@ function scrollCarouselRight() {
         behavior: 'smooth'
     });
 }
-function goToShoppingCartPage() {
-    window.location.replace("shoppingcart.html", "_blank")
-}
 
 function goToShoppingCartPage() {
-    window.location.replace("shoppingcart.html", "_blank")
+    window.location.replace("shoppingcart.html", "_blank");
 }
 
 function filterByOrder(order) {
-    currentSortOrder = order;
-    createScroll(sortBooks(order));
+    if (order === 'original') {
+        Books = [...originalBooks]; // Restore the original order
+    } else {
+        currentSortOrder = order;
+        Books = sortBooks(order);
+    }
+    createScroll(Books);
 }
 
 // Function to sort the books based on the current order
 function sortBooks(order) {
-    let sortedBooks = [...Books];
-
     switch (order) {
         case 'name':
-            sortedBooks.sort((a, b) => a.bookName.localeCompare(b.bookName));
+            Books.sort((a, b) => a.bookName.localeCompare(b.bookName));
             break;
         case 'author':
-            sortedBooks.sort((a, b) => a.bookAuthor.localeCompare(b.bookAuthor));
+            Books.sort((a, b) => a.bookAuthor.localeCompare(b.bookAuthor));
             break;
-
         default:
-            // Default case, no sorting
+            Books = [...originalBooks];
             break;
     }
 
-    return sortedBooks;
+    return Books;
 }
