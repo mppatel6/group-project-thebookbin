@@ -1,4 +1,6 @@
 // Function to check if the user is logged in
+const curl = "https://localhost:5263/api/Customer";
+
 function isLoggedIn() {
     return localStorage.getItem('isLoggedIn') === 'true';
 }
@@ -40,25 +42,29 @@ document.getElementById("tradeInForm").addEventListener("submit", async function
     const bookAuthor = document.getElementById("bookAuthor").value;
     const bookGenre = document.getElementById("bookGenre").value;
     const bookQuality = document.getElementById("bookQuality").value;
+    const custEmail = document.getElementById("email").value;
 
     const bookDescription = "User trade-in";
     const bookImage = "./path/to/default/image.jpg"; 
 
     let newQuantity = 0, goodQuantity = 0, poorQuantity = 0;
-    let newPrice = 0, goodPrice = 0, poorPrice = 0;
+    let newPrice = 0, goodPrice = 0, poorPrice = 0, tokens = 0;
 
     switch(bookQuality) {
         case "new":
             newQuantity = 1;
-            newPrice = 10; 
+            newPrice = 10;
+            tokens = 10;
             break;
         case "good":
             goodQuantity = 1;
-            goodPrice = 5; 
+            goodPrice = 5;
+            tokens = 5;
             break;
         case "poor":
             poorQuantity = 1;
-            poorPrice = 2; 
+            poorPrice = 2;
+            tokens = 2;
             break;
     }
 
@@ -79,7 +85,7 @@ document.getElementById("tradeInForm").addEventListener("submit", async function
     };
 
     try {
-        const response = await fetch("http://localhost:5263/api/TradeIn", {
+        const response = await fetch("https://localhost:5263/api/TradeIn", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -89,6 +95,29 @@ document.getElementById("tradeInForm").addEventListener("submit", async function
 
         if(response.ok){
             console.log("Book trade-in submitted successfully");
+            
+            let Customers = []
+            Customers = await getCustomers()
+            console.log(Customers)
+            const foundCustomer = Customers.find(customer => customer.customerEmail === custEmail);
+            console.log(foundCustomer)
+
+            foundCustomer.customerTokenAmount += tokens;
+
+            const custData = {
+                cid: foundCustomer.cid,
+                customerEmail: foundCustomer.customerEmail,
+                customerPassword: foundCustomer.customerPassword,
+                customerTokenAmount: foundCustomer.customerTokenAmount
+            }
+            
+            await fetch(curl, {
+                method: "PUT",
+                body: JSON.stringify(custData),
+                headers: {
+                    "Content-type" : "application/json; charset=UTF-8"
+                } 
+            })
 
             event.target.reset();
 
@@ -102,3 +131,10 @@ document.getElementById("tradeInForm").addEventListener("submit", async function
         displayMessage("Network error", "error");
     }
 });
+
+async function getCustomers(){
+    let response = await fetch(curl)
+    let customers = await response.json()
+
+    return await customers
+}

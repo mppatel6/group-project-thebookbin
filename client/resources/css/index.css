@@ -44,5 +44,11 @@ body {
     border-color: rgb(183, 78, 78); 
 }
 
+#tokenAmount {
+    color: white;
+    text-align: center;
+    font-size: 18px; /* Adjust the font size as needed */
+}
+
 
 

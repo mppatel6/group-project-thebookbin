@@ -11,6 +11,7 @@
         .background-container {
             background-image: url('./resources/img/bookbinbackground.jpeg');
             background-size: cover;
+            background-position: center;
             filter: blur(10px);
             position: fixed;
             top: 0;
@@ -56,6 +57,12 @@
             </div>
         </nav>
     </header>
+    <div>
+        <button class="btn btn-primary" onclick="filterByOrder('name')">Sort by Book Name</button>
+        <button class="btn btn-primary" onclick="filterByOrder('author')">Sort by Book Author</button>
+        <button class="btn btn-primary" onclick="filterByOrder('default')">Default Order</button>
+    </div>
+
     <div class="carousel-container">
         <div class="scroll-left" onclick="scrollCarouselLeft()">⟨</div>
         <div class="carousel">

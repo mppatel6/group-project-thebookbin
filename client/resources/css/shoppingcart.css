@@ -43,6 +43,7 @@
 .background-container {
     background-image: url('./resources/img/bookbinbackground.jpeg');
     background-size: cover;
+    background-position: center;
     filter: blur(10px);
     position: fixed;
     top: 0;

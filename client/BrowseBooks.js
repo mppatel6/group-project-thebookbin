@@ -25,6 +25,8 @@ async function getBooks(){
 }
 
 async function createScroll(Book){
+    sliders.innerHTML = '';
+
     Book.map(function(cur, index){
         sliders.insertAdjacentHTML(
             "beforeend",
@@ -64,4 +66,29 @@ function goToShoppingCartPage() {
 
 function goToShoppingCartPage() {
     window.location.replace("shoppingcart.html", "_blank")
+}
+
+function filterByOrder(order) {
+    currentSortOrder = order;
+    createScroll(sortBooks(order));
+}
+
+// Function to sort the books based on the current order
+function sortBooks(order) {
+    let sortedBooks = [...Books];
+
+    switch (order) {
+        case 'name':
+            sortedBooks.sort((a, b) => a.bookName.localeCompare(b.bookName));
+            break;
+        case 'author':
+            sortedBooks.sort((a, b) => a.bookAuthor.localeCompare(b.bookAuthor));
+            break;
+
+        default:
+            // Default case, no sorting
+            break;
+    }
+
+    return sortedBooks;
 }

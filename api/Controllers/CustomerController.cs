@@ -36,8 +36,8 @@ namespace api.Controllers
         }
 
         // PUT: api/Customer/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Customer value)
+        [HttpPut]
+        public void Put([FromBody] Customer value)
         {
             CustomerUtility editCust = new CustomerUtility();
             editCust.EditCustomers(value);
