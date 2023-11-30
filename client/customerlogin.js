@@ -1,4 +1,4 @@
-const url = "http://localhost:5263/api/Customer";
+const url = "https://localhost:5263/api/Customer";
 let Customers = []
 
 async function handleOnLoad(){
@@ -7,8 +7,8 @@ async function handleOnLoad(){
 }
 
 async function fetchCustomers(){
-    // Customers = await getCustomers()
-    // console.log(Customers)
+    Customers = await getCustomers()
+    console.log(Customers)
 
 }
 

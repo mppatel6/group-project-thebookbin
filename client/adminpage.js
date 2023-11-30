@@ -67,7 +67,7 @@ function confirmDelete(bookID) {
 
 async function deleteBook(bookID) {
     try {
-        const response = await fetch(`http://localhost:5263/api/Admin/DeleteBook/${bookID}`, {
+        const response = await fetch(`https://localhost:5263/api/Admin/DeleteBook/${bookID}`, {
             method: "DELETE"
         });
 
@@ -189,7 +189,7 @@ document.getElementById("addBookForm").addEventListener("submit", async function
     };
 
     try {
-        const response = await fetch("http://localhost:5263/api/Admin/AddBook", {
+        const response = await fetch("https://localhost:5263/api/Admin/AddBook", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
