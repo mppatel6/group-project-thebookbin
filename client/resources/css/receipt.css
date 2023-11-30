@@ -4,3 +4,62 @@
     overflow: hidden;
     /* Other styles for your logo if needed */
 }
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    margin-top: 2rem;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: black;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+#booksList {
+    list-style: none;
+    padding: 0;
+}
+
+#booksList li {
+    margin-bottom: 1rem;
+}
+
+#booksList img {
+    max-width: 100px;
+    height: auto;
+    margin-right: 1rem;
+}
+
+.customer-info p {
+    margin: 0.5rem 0;
+}
+
+.books-list-container {
+    margin-top: 1rem;
+}
+
+.total-price {
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1rem;
+    }
+
+    #booksList img {
+        max-width: 80px;
+        margin-right: 0.5rem;
+    }
+}

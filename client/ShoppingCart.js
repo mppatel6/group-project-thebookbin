@@ -134,41 +134,38 @@ async function checkout() {
         }
     }
 
-
-    console.log(order)
-    console.log(order.CID)
-
-    // await fetch(ourl, {
-    //     method: "POST",
-    //     body: JSON.stringify(order),
-    //     headers: {
-    //         "Content-type": "application/json; charset=UTF-8"
-    //     }
-    // }).then(async function() {
-    //     console.log("here");
-    //     // Iterate through each book in the shopping cart and create an order detail
-    //     for (let i = 0; i < shoppingCart.length; i++) {
-    //         console.log(shoppingCart)
-    //         let book = shoppingCart[i];
     
-    //         let orderDetail = {
-    //             OrderDetailID: 0, // Let the server handle the auto-increment
-    //             OrderID: 0, // Use the OrderID from the created order
-    //             BookID: book.bookID, // Replace BookID with the correct property from your book object
-    //             // Add other properties for order detail as needed
-    //         };
+
+    await fetch(ourl, {
+        method: "POST",
+        body: JSON.stringify(order),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    }).then(async function() {
+        // Iterate through each book in the shopping cart and create an order detail
+        for (let i = 0; i < shoppingCart.length; i++) {
+            console.log(shoppingCart)
+            let book = shoppingCart[i];
+    
+            let orderDetail = {
+                OrderDetailID: 0, // Let the server handle the auto-increment
+                OrderID: 0, // Use the OrderID from the created order
+                BookID: book.bookID, // Replace BookID with the correct property from your book object
+                // Add other properties for order detail as needed
+            };
             
-    //         console.log(orderDetail)
-    //         // Make a POST request to create the order detail
-    //         await fetch(odurl, {
-    //             method: "POST",
-    //             body: JSON.stringify(orderDetail),
-    //             headers: {
-    //                 "Content-type": "application/json; charset=UTF-8"
-    //             }
-    //         });
-    //     }
-    // });
+            console.log(orderDetail)
+            // Make a POST request to create the order detail
+            await fetch(odurl, {
+                method: "POST",
+                body: JSON.stringify(orderDetail),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+        }
+    });
 
     window.location.href = 'receipt.html';
 }

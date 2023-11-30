@@ -21,7 +21,7 @@
         }
     </style>
 </head>
-<body>
+<body onload = "handleOnLoad()">
     <div class="background-container"></div>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -56,5 +56,45 @@
             </div>
         </nav>
     </header>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title text-center mb-4">Receipt</h1>
+
+                        <!-- Display Order Information -->
+                        <h2>Order Information</h2>
+                        <h2>Customer Information</h2>
+                            <p>Email: <span id="customerEmail"></span></p>
+                            <p>First Name: <span id="customerFName"></span></p>
+                            <p>Last Name: <span id="customerLName"></span></p>
+                            <p>Address: <span id="customerAddress"></span></p>
+                            <p>Country: <span id="country"></span></p>
+                            <p>State: <span id="state"></span></p>
+                            <p>Zipcode: <span id="zipcode"></span></p>
+
+                        <!-- Display Books in Shopping Cart -->
+                        <h2>Books Ordered</h2>
+                        <ul id="booksList"></ul>
+                        <a href="homepage.html" class="btn btn-primary" onclick="goToHomepage()">Continue</a>
+                        <h3 style="margin-top: 20px;">Thanks for shopping at the Book Bin!</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function goToHomepage() {
+            // Clear the local storage
+            localStorage.removeItem('shoppingCart');
+            localStorage.removeItem('conditions');
+    
+            // Navigate to the homepage
+            window.location.href = 'homepage.html';
+        }
+    </script>
+    <script src="./receipt.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

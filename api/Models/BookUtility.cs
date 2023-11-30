@@ -150,5 +150,35 @@ namespace api.Models
     cmd.ExecuteNonQuery();
 }
 
+
+        public Book GetBook(int id){
+            Database db = new Database();
+            using var con = new MySqlConnection(db.cs);
+            con.Open();
+
+            string stm = "SELECT * FROM book WHERE BookID = @BookID";
+            using var cmd = new MySqlCommand(stm, con);
+            cmd.Parameters.AddWithValue("@BookID", id);
+            cmd.Prepare();
+            using MySqlDataReader rdr = cmd.ExecuteReader();
+
+            rdr.Read();
+
+            return new Book(){
+                BookID = rdr.GetInt32(0),
+                BookName = rdr.GetString(1),
+                BookAuthor = rdr.GetString(2),
+                BookGenre = rdr.GetString(3),
+                BookDescription = rdr.GetString(4),
+                BookImage = rdr.GetString(5),
+                NewQuantity = rdr.GetInt32(6),
+                NewPrice = rdr.GetInt32(7),
+                GoodQuantity = rdr.GetInt32(8),
+                GoodPrice = rdr.GetInt32(9),
+                PoorQuantity = rdr.GetInt32(10),
+                PoorPrice = rdr.GetInt32(11),
+                AdminID = rdr.GetInt32(12)
+            };
+        }
     }
 }
