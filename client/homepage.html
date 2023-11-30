@@ -12,8 +12,8 @@
         #welcomeMessage {
             color: white;
             text-align: center;
-            margin-top: 20px; /* Adjust the margin as needed */
-            font-size: 24px; /* Adjust the font size as needed */
+            margin-top: 20px; 
+            font-size: 24px; 
         }
 
         #logoutButton {
@@ -22,7 +22,7 @@
         }
     </style>
 </head>
-<body onload="handleOnLoad()" class="body" style="background-image: url('./resources/img/bookbinbackground.jpeg');">
+<body class="body" style="background-image: url('./resources/img/bookbinbackground.jpeg');">
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="/">
@@ -64,48 +64,57 @@
         </div>
 
         <div class="text-center" style="margin-top: 10px;">
-            <a href="browse.html" class="btn custom-button" style="font-size: 20px;">Browse our Selection</a>
+            <a href="browse.html" class="btn btn-danger" style="font-size: 20px;">Browse our Selection</a>
         </div>
         <h1 id="welcomeMessage"></h1>
-        <h2 id ="tokenAmount"></h2>
-        <button id="logoutButton" class="btn btn-danger mt-3 mx-auto d-block" style="display: none;">Logout</button>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const welcomeMessage = document.getElementById('welcomeMessage');
-            const logoutButton = document.getElementById('logoutButton');
 
 
-            // Check if user is logged in
-            const email = localStorage.getItem('email');
-            if (email) {
-                welcomeMessage.textContent = `Welcome, ${email}!`;
 
-                // Show the logout button
-                logoutButton.style.display = 'block';
 
-                // Add click event listener to logout button
-                logoutButton.addEventListener('click', function () {
-                    // Clear local storage
-                    localStorage.removeItem('email');
-                    localStorage.removeItem('password');
-                    localStorage.setItem('isLoggedIn', 'false');
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const email = localStorage.getItem('email');
+        function refreshPage() {
+            location.reload();
+        }
 
-                    // Hide the welcome message and logout button
-                    welcomeMessage.textContent = '';
-                    logoutButton.style.display = 'none';
+        if (email) {
+            welcomeMessage.textContent = `Welcome, ${email}!`;
 
-                    // You can also add a message or other actions after logging out
-                    console.log('User logged out successfully');
-                });
-            } else {
-                // Hide the logout button if no user is logged in
+            const logoutButton = document.createElement('button');
+            logoutButton.id = 'logoutButton';
+            logoutButton.className = 'btn btn-danger mt-3 mx-auto d-block';
+            logoutButton.style.display = 'block';
+            logoutButton.textContent = 'Logout';
+
+            logoutButton.addEventListener('click', function () {
+                localStorage.removeItem('email');
+                localStorage.removeItem('password');
+
+                welcomeMessage.textContent = '';
                 logoutButton.style.display = 'none';
-            }
-        });
-    </script>
 
-        
-    <script src="./homepage.js"></script>
+                console.log('User logged out successfully');
+                refreshPage();
+            });
+
+            document.body.appendChild(logoutButton);
+        } else {
+            const loginButton = document.createElement('button');
+            loginButton.id = 'loginButton';
+            loginButton.className = 'btn btn-danger mt-3 mx-auto d-block';
+            loginButton.style.display = 'block';
+            loginButton.textContent = 'Log In';
+
+            loginButton.addEventListener('click', function () {
+                window.location.href = 'customerlogin.html';
+            });
+            document.body.appendChild(loginButton);
+        }
+    });
+</script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
