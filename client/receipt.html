@@ -63,10 +63,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h1 class="card-title text-center mb-4">Receipt</h1>
-
+ 
                         <!-- Display Order Information -->
                         <h2>Order Information</h2>
-                        <h2>Customer Information</h2>
                             <p>Email: <span id="customerEmail"></span></p>
                             <p>First Name: <span id="customerFName"></span></p>
                             <p>Last Name: <span id="customerLName"></span></p>
@@ -74,7 +73,7 @@
                             <p>Country: <span id="country"></span></p>
                             <p>State: <span id="state"></span></p>
                             <p>Zipcode: <span id="zipcode"></span></p>
-
+ 
                         <!-- Display Books in Shopping Cart -->
                         <h2>Books Ordered</h2>
                         <ul id="booksList"></ul>
@@ -90,7 +89,7 @@
             // Clear the local storage
             localStorage.removeItem('shoppingCart');
             localStorage.removeItem('conditions');
-    
+   
             // Navigate to the homepage
             window.location.href = 'homepage.html';
         }
