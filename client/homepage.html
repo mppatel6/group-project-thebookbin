@@ -89,6 +89,7 @@
             logoutButton.addEventListener('click', function () {
                 localStorage.removeItem('email');
                 localStorage.removeItem('password');
+                localStorage.removeItem('isLoggedIn')
  
                 welcomeMessage.textContent = '';
                 logoutButton.style.display = 'none';

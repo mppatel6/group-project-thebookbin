@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="./resources/css/adminpage.css">
-    <title>Admin Page</title>
-    <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="./resources/css/adminpage.css">
+<title>Admin Page</title>
+<style>
         .background-container {
             background-image: url('./resources/img/bookbinbackground.jpeg');
             background-size: cover;
@@ -33,110 +33,169 @@
             max-width: 500px;
             text-align: center;
         }
-    </style>
+</style>
 </head>
 <body onload="handleOnLoad()" style="background-image: url('./resources/img/bookbinbackground.jpeg');">
-    <div class="background-container"></div>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">
-                <div class="logo-image">
-                    <img src="./resources/img/logo.jpg" class="img-fluid">
-                </div>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="homepage.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="browse.html">Buy</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="tradein.html">Trade In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contactus.html">Contact Us</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="navbar-nav">
-                <a class="nav-link btn btn-primary" href="shoppingcart.html"><i class="bi bi-cart"></i></a>
-                <a class="nav-link btn btn-primary" href="customerlogin.html"><i class="bi bi-person-fill"></i></a>
-                <a class="nav-link btn btn-primary" href="adminlogin.html">Admin Login</a>
-            </div>
-        </nav>
-    </header>
-
-    <button class="addbookbtn">Add New Book +</button>
-
+<div class="background-container"></div>
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<a class="navbar-brand" href="/">
+<div class="logo-image">
+<img src="./resources/img/logo.jpg" class="img-fluid">
+</div>
+</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav">
+<li class="nav-item active">
+<a class="nav-link" href="homepage.html">Home</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="browse.html">Buy</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="tradein.html">Trade In</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="contactus.html">Contact Us</a>
+</li>
+</ul>
+</div>
+<div class="navbar-nav">
+<a class="nav-link btn btn-primary" href="shoppingcart.html"><i class="bi bi-cart"></i></a>
+<a class="nav-link btn btn-primary" href="customerlogin.html"><i class="bi bi-person-fill"></i></a>
+<a class="nav-link btn btn-primary" href="adminlogin.html">Admin Login</a>
+</div>
+</nav>
+</header>
+ 
+    ...
+<div class="button-group">
+<button class="addbookbtn">Add New Book +</button>
+<div class="btn-group">
+<label class="btn btn-danger" style="font-size: 12pt;">Filter:
+<select style="height: 35px; font-size: 10pt;" class="form-select" onchange="filterByOrder(this.value)">
+<option value="default">Default Order</option>
+<option value="name">Book Name</option>
+<option value="author">Book Author</option>
+</select>
+</label>
+</div>
+</div>
 <div class="shadow-overlay" id="shadowOverlay"></div>
-
 <div class="form-container" id="addBookForm">
-        <h2>Add New Book</h2>
-        <form>
-            <div class="mb-3">
-                <label for="bookTitle" class="form-label">Book Title</label>
-                <input type="text" class="form-control" id="bookTitle" placeholder="Enter book title">
-            </div>
-            <div class="mb-3">
-                <label for="bookAuthor" class="form-label">Author</label>
-                <input type="text" class="form-control" id="bookAuthor" placeholder="Enter author's name">
-            </div>
-            <div class="mb-3">
-                <label for="bookGenre" class="form-label">Genre</label>
-                <select class="form-select" id="bookGenre">
-                    <option value="">Select Genre</option>
-                    <option value="comedy">Comedy</option>
-                    <option value="action">Action</option>
-                    <option value="romance">Romance</option>
-                    <option value="history">History</option>
-                    <option value="child">Child</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="bookQuality" class="form-label">Quality</label>
-                <select class="form-select" id="bookQuality">
-                    <option value="">Select Quality</option>
-                    <option value="new">New</option>
-                    <option value="good">Good</option>
-                    <option value="poor">Poor</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="bookDescription" class="form-label">Description</label>
-                <textarea class="form-control" id="bookDescription" rows="3" placeholder="Enter book description"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="bookImage" class="form-label">Book Image URL</label>
-                <input type="text" class="form-control" id="bookImage" placeholder="Enter image URL">
-            </div>
-            <div class="mb-3">
-                <label for="bookPrice" class="form-label">Price</label>
-                <input type="number" class="form-control" id="bookPrice" placeholder="Enter price">
-                <div class="form-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <button type="button" class="btn btn-secondary close-button">X</button>
-                </div>
-        </form>
-    </div>
+<h2>Add New Book</h2>
+<form>
+<div class="mb-3">
+<label for="bookTitle" class="form-label">Book Title</label>
+<input type="text" class="form-control" id="bookTitle" placeholder="Enter book title" required>
+</div>
+<div class="mb-3">
+<label for="bookAuthor" class="form-label">Author</label>
+<input type="text" class="form-control" id="bookAuthor" placeholder="Enter author's name" required>
+</div>
+<div class="mb-3">
+<label for="bookGenre" class="form-label">Genre</label>
+<select class="form-select" id="bookGenre" required>
+<option value="">Select Genre</option>
+<option value="comedy">Comedy</option>
+<option value="action">Action</option>
+<option value="romance">Romance</option>
+<option value="history">History</option>
+<option value="child">Child</option>
+</select>
+</div>
+<div class="mb-3">
+<label for="bookQuality" class="form-label">Quality</label>
+<select class="form-select" id="bookQuality" required>
+<option value="">Select Quality</option>
+<option value="new">New</option>
+<option value="good">Good</option>
+<option value="poor">Poor</option>
+</select>
+</div>
+<div class="mb-3">
+<label for="bookPrice" class="form-label">Price</label>
+<input type="number" class="form-control" id="bookPrice" placeholder="Enter price" required>
+</div>
+<div class="mb-3">
+<label for="bookDescription" class="form-label">Description</label>
+<textarea class="form-control" id="bookDescription" rows="3" placeholder="Enter book description" required></textarea>
+</div>
+<div class="mb-3">
+<label for="bookImage" class="form-label">Book Image URL</label>
+<input type="text" class="form-control" id="bookImage" placeholder="Enter image URL" required>
+</div>
+<div class="form-footer">
+<button type="submit" class="btn btn-primary">Submit</button>
+<button type="button" class="btn btn-secondary close-button">X</button>
+</div>
+</form>
+</div>
+<div class="form-container" id="editBookForm">
+<h2>Edit Book</h2>
+<form>
+<div class="mb-3">
+<label for="editBookTitle" class="form-label">Book Title</label>
+<input type="text" class="form-control" id="editBookTitle" placeholder="Enter book title" required>
+</div>
+<div class="mb-3">
+<label for="editBookAuthor" class="form-label">Author</label>
+<input type="text" class="form-control" id="editBookAuthor" placeholder="Enter author's name" required>
+</div>
+<div class="mb-3">
+<label for="editBookGenre" class="form-label">Genre</label>
+<select class="form-select" id="editBookGenre" required>
+<option value="">Select Genre</option>
+<option value="Comedy">Comedy</option>
+<option value="Action">Action</option>
+<option value="Romance">Romance</option>
+<option value="History">History</option>
+<option value="Child">Child</option>
+</select>
+</div>
+<div class="mb-3">
+<label for="editBookQuality" class="form-label">Quality</label>
+<select class="form-select" id="editBookQuality" required>
+<option value="">Select Quality</option>
+<option value="new">New</option>
+<option value="good">Good</option>
+<option value="poor">Poor</option>
+</select>
+</div>
+<div class="mb-3">
+<label for="editBookPrice" class="form-label">Price</label>
+<input type="number" class="form-control" id="editBookPrice" placeholder="Enter price" required>
+</div>
+<div class="mb-3">
+<label for="editBookQuantity" class="form-label">Quantity</label>
+<input type="number" id="editBookQuantity" class="form-control" placeholder="Quantity">
+</div>
+<div class="mb-3">
+<label for="editBookDescription" class="form-label">Description</label>
+<textarea class="form-control" id="editBookDescription" rows="3" placeholder="Enter book description" required></textarea>
+</div>
+<div class="mb-3">
+<label for="editBookImage" class="form-label">Book Image URL</label>
+<input type="text" class="form-control" id="editBookImage" placeholder="Enter image URL" required>
 </div>
 
-
+<div class="form-footer">
+<button type="submit" class="btn btn-primary">Submit</button>
+<button type="button" class="btn btn-secondary close-button" id="editCloseButton">X</button>
+</div>
+</form>
+</div>
 <div class="carousel-container">
-    <div class="scroll-left" onclick="scrollCarouselLeft()">⟨</div>
-    <div class="carousel">
-        <div class="carouselbox"></div>
-    </div>
-    <div class="scroll-right" onclick="scrollCarouselRight()">⟩</div>
+<div class="scroll-left" onclick="scrollCarouselLeft()">⟨</div>
+<div class="carousel">
+<div class="carouselbox"></div>
 </div>
-
-
-    
-    <script src="./adminpage.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<div class="scroll-right" onclick="scrollCarouselRight()">⟩</div>
+</div>
+<script src="./adminpage.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 using MySql.Data.MySqlClient;
 using api.Models;
-
+ 
 namespace api.Models
 {
     public class BookUtility
@@ -8,13 +8,13 @@ namespace api.Models
         public List<Book> ReadBooks(){
             Database db = new Database();
             using var con = new MySqlConnection(db.cs);
-
+ 
             con.Open();
             var bookList = new List<Book>();
             string stm = "SELECT * from book;";
             using var cmd = new MySqlCommand(stm, con);
             using MySqlDataReader rdr = cmd.ExecuteReader();
-
+ 
             while(rdr.Read()) {
                 var bookData = new Book{
                     BookID = rdr.GetInt32(0),
@@ -36,20 +36,20 @@ namespace api.Models
             con.Close();
             return bookList;
         }
-
+ 
         public void AddBook(Book book)
 {
     Database db = new Database();
     using var con = new MySqlConnection(db.cs);
     con.Open();
-
+ 
     string checkQuery = "SELECT * FROM book WHERE BookName = @BookName AND BookAuthor = @BookAuthor;";
     using var checkCmd = new MySqlCommand(checkQuery, con);
     checkCmd.Parameters.AddWithValue("@BookName", book.BookName);
     checkCmd.Parameters.AddWithValue("@BookAuthor", book.BookAuthor);
-
+ 
     using MySqlDataReader reader = checkCmd.ExecuteReader();
-
+ 
     if (reader.Read())
     {
         reader.Close();
@@ -60,19 +60,19 @@ namespace api.Models
         reader.Close();
         AddBook(book, con);
     }
-
+ 
     con.Close();
 }
-
-
+ 
+ 
         public void EditBook(Book value) {
             Database db = new Database();
             using var con = new MySqlConnection(db.cs);
             con.Open();
-
+ 
             string stm = @"UPDATE book SET BookID = @BookID, BookName = @BookName, BookAuthor = @BookAuthor, BookGenre = @BookGenre, BookDescription = @BookDescription, BookImage = @BookImage, NewQuantity = @NewQuantity, NewPrice = @NewPrice, GoodQuantity = @GoodQuantity, GoodPrice = @GoodPrice, PoorQuantity = @PoorQuantity, PoorPrice = @PoorPrice, AdminID = @AdminID WHERE BookID = @BookID;";
             using var cmd = new MySqlCommand(stm, con);
-
+ 
             cmd.Parameters.AddWithValue("@BookID", value.BookID);
             cmd.Parameters.AddWithValue("@BookName", value.BookName);
             cmd.Parameters.AddWithValue("@BookAuthor", value.BookAuthor);
@@ -86,12 +86,12 @@ namespace api.Models
             cmd.Parameters.AddWithValue("@PoorQuantity", value.PoorQuantity);
             cmd.Parameters.AddWithValue("@PoorPrice", value.PoorPrice);
             cmd.Parameters.AddWithValue("@AdminID", value.AdminID);
-
+ 
             cmd.Prepare();
             cmd.ExecuteNonQuery();
         }
-
-
+ 
+ 
         private void UpdateQuantities(Book book, MySqlConnection con) {
     string updateQuery = @"UPDATE book 
                            SET NewQuantity = NewQuantity + @NewQuantity,
@@ -101,9 +101,9 @@ namespace api.Models
                                GoodPrice = CASE WHEN @GoodQuantity > 0 AND @GoodPrice >= 0 THEN @GoodPrice ELSE GoodPrice END,
                                PoorPrice = CASE WHEN @PoorQuantity > 0 AND @PoorPrice >= 0 THEN @PoorPrice ELSE PoorPrice END
                            WHERE BookName = @BookName AND BookAuthor = @BookAuthor;";
-
+ 
     using var cmd = new MySqlCommand(updateQuery, con);
-
+ 
     cmd.Parameters.AddWithValue("@NewQuantity", book.NewQuantity);
     cmd.Parameters.AddWithValue("@GoodQuantity", book.GoodQuantity);
     cmd.Parameters.AddWithValue("@PoorQuantity", book.PoorQuantity);
@@ -112,15 +112,15 @@ namespace api.Models
     cmd.Parameters.AddWithValue("@PoorPrice", book.PoorPrice >= 0 ? book.PoorPrice : (object)DBNull.Value);
     cmd.Parameters.AddWithValue("@BookName", book.BookName);
     cmd.Parameters.AddWithValue("@BookAuthor", book.BookAuthor);
-
+ 
     cmd.ExecuteNonQuery();
 }
-
-
+ 
+ 
         private void AddBook(Book book, MySqlConnection con) {
             string insertQuery = @"INSERT INTO book (BookName, BookAuthor, BookGenre, BookDescription, BookImage, NewQuantity, NewPrice, GoodQuantity, GoodPrice, PoorQuantity, PoorPrice, AdminID) VALUES(@BookName, @BookAuthor, @BookGenre, @BookDescription, @BookImage, @NewQuantity, @NewPrice, @GoodQuantity, @GoodPrice, @PoorQuantity, @PoorPrice, @AdminID);";
             using var cmd = new MySqlCommand(insertQuery, con);
-
+ 
             cmd.Parameters.AddWithValue("@BookName", book.BookName);
             cmd.Parameters.AddWithValue("@BookAuthor", book.BookAuthor);
             cmd.Parameters.AddWithValue("@BookGenre", book.BookGenre);
@@ -133,37 +133,37 @@ namespace api.Models
             cmd.Parameters.AddWithValue("@PoorQuantity", book.PoorQuantity);
             cmd.Parameters.AddWithValue("@PoorPrice", book.PoorPrice);
             cmd.Parameters.AddWithValue("@AdminID", book.AdminID);
-
+ 
             cmd.ExecuteNonQuery();
         }
-
+ 
         public void DeleteBook(int bookID)
-{
+        {
     Database db = new Database();
     using var con = new MySqlConnection(db.cs);
     con.Open();
-
+ 
     string deleteQuery = "DELETE FROM book WHERE BookID = @BookID;";
     using var cmd = new MySqlCommand(deleteQuery, con);
     cmd.Parameters.AddWithValue("@BookID", bookID);
-
+ 
     cmd.ExecuteNonQuery();
-}
-
-
+    }
+ 
+ 
         public Book GetBook(int id){
             Database db = new Database();
             using var con = new MySqlConnection(db.cs);
             con.Open();
-
+ 
             string stm = "SELECT * FROM book WHERE BookID = @BookID";
             using var cmd = new MySqlCommand(stm, con);
             cmd.Parameters.AddWithValue("@BookID", id);
             cmd.Prepare();
             using MySqlDataReader rdr = cmd.ExecuteReader();
-
+ 
             rdr.Read();
-
+ 
             return new Book(){
                 BookID = rdr.GetInt32(0),
                 BookName = rdr.GetString(1),
@@ -180,5 +180,92 @@ namespace api.Models
                 AdminID = rdr.GetInt32(12)
             };
         }
+ 
+        public void UpdateBookDetails(int bookID, Book updatedBook)
+        {
+            Database db = new Database();
+            using var con = new MySqlConnection(db.cs);
+            con.Open();
+ 
+            string updateQuery = @"
+                UPDATE book 
+                SET 
+                    BookName = @BookName, 
+                    BookAuthor = @BookAuthor, 
+                    BookGenre = @BookGenre, 
+                    BookDescription = @BookDescription, 
+                    BookImage = @BookImage, 
+                    NewQuantity = @NewQuantity, 
+                    NewPrice = @NewPrice, 
+                    GoodQuantity = @GoodQuantity, 
+                    GoodPrice = @GoodPrice, 
+                    PoorQuantity = @PoorQuantity, 
+                    PoorPrice = @PoorPrice
+                WHERE BookID = @BookID;";
+ 
+            using var cmd = new MySqlCommand(updateQuery, con);
+ 
+            // Adding parameters to prevent SQL Injection
+            cmd.Parameters.AddWithValue("@BookID", bookID);
+            cmd.Parameters.AddWithValue("@BookName", updatedBook.BookName);
+            cmd.Parameters.AddWithValue("@BookAuthor", updatedBook.BookAuthor);
+            cmd.Parameters.AddWithValue("@BookGenre", updatedBook.BookGenre);
+            cmd.Parameters.AddWithValue("@BookDescription", updatedBook.BookDescription);
+            cmd.Parameters.AddWithValue("@BookImage", updatedBook.BookImage);
+            cmd.Parameters.AddWithValue("@NewQuantity", updatedBook.NewQuantity);
+            cmd.Parameters.AddWithValue("@NewPrice", updatedBook.NewPrice);
+            cmd.Parameters.AddWithValue("@GoodQuantity", updatedBook.GoodQuantity);
+            cmd.Parameters.AddWithValue("@GoodPrice", updatedBook.GoodPrice);
+            cmd.Parameters.AddWithValue("@PoorQuantity", updatedBook.PoorQuantity);
+            cmd.Parameters.AddWithValue("@PoorPrice", updatedBook.PoorPrice);
+ 
+            cmd.ExecuteNonQuery();
+        }
+ 
+      public decimal GetPriceByQuality(int bookID, string quality)
+{
+    Database db = new Database();
+            using var con = new MySqlConnection(db.cs);
+            con.Open();
+ 
+    string query = "SELECT NewPrice, GoodPrice, PoorPrice FROM book WHERE BookID = @bookID";
+    using var cmd = new MySqlCommand(query, con);
+    cmd.Parameters.AddWithValue("@bookID", bookID);
+ 
+    using MySqlDataReader rdr = cmd.ExecuteReader();
+ 
+    if (rdr.Read())
+    {
+        int priceIndex;
+        switch (quality.ToLower())
+        {
+            case "new":
+                priceIndex = rdr.GetOrdinal("NewPrice");
+                break;
+            case "good":
+                priceIndex = rdr.GetOrdinal("GoodPrice");
+                break;
+            case "poor":
+                priceIndex = rdr.GetOrdinal("PoorPrice");
+                break;
+            default:
+                throw new Exception("Invalid quality specified");
+        }
+ 
+        if (!rdr.IsDBNull(priceIndex))
+        {
+            return rdr.GetDecimal(priceIndex);
+        }
+        else
+        {
+            throw new Exception("Price not found");
+        }
+    }
+    else
+    {
+        throw new Exception("Book not found");
+    }
+}
+ 
     }
 }
