@@ -714,6 +714,8 @@ document.getElementById("editBookForm").addEventListener("submit", async functio
 
             editedBook = null;
 
+            await fetchBooks();
+
         } else {
 
             console.error("Error in updating book");
