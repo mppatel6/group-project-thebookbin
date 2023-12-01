@@ -1,111 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" type ="text/css" href="./resources/css/index.css">
-    <title>Home Page</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" type ="text/css" href="./resources/css/index.css">
+<title>Home Page</title>
+ 
     <style>
         #welcomeMessage {
             color: white;
             text-align: center;
-            margin-top: 20px; /* Adjust the margin as needed */
-            font-size: 24px; /* Adjust the font size as needed */
+            margin-top: 20px; 
+            font-size: 24px; 
         }
-
+ 
         #logoutButton {
             margin-top: 10px;
             align-items: center;
         }
-    </style>
+</style>
 </head>
-<body onload="handleOnLoad()" class="body" style="background-image: url('./resources/img/bookbinbackground.jpeg');">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">
-                <div class="logo-image">
-                    <img src="./resources/img/logo.jpg" class="img-fluid">
-                </div>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="homepage.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="browse.html">Buy</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="tradein.html">Trade In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contactus.html">Contact Us</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="navbar-nav">
-                <a class="nav-link btn btn-primary" href="shoppingcart.html"><i class="bi bi-cart"></i></a>
-                <a class="nav-link btn btn-primary" href="customerlogin.html"><i class="bi bi-person-fill"></i></a>
-                <a class="nav-link btn btn-primary" href="adminlogin.html">Admin Login</a>
-            </div>
-        </nav>
-    </header>
-        <div class="welcome-text" style="margin-top: 100px;"> 
-            <div class="welcome-container">
-                <p style="font-size: 26px;">Welcome to The Book Bin, your go-to destination for quality used books in Tuscaloosa, Alabama!</p>
-                <p style="font-size: 26px;">We're passionate about connecting readers with affordable, pre-loved books and fostering a sense of community around the written world!</p>
-            </div>
-        </div>
-
+<body onload = "handleOnLoad()"class="body" style="background-image: url('./resources/img/bookbinbackground.jpeg');">
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<a class="navbar-brand" href="/">
+<div class="logo-image">
+<img src="./resources/img/logo.jpg" class="img-fluid">
+</div>
+</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav">
+<li class="nav-item active">
+<a class="nav-link" href="homepage.html">Home</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="browse.html">Buy</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="tradein.html">Trade In</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="contactus.html">Contact Us</a>
+</li>
+</ul>
+</div>
+<div class="navbar-nav">
+<a class="nav-link btn btn-primary" href="shoppingcart.html"><i class="bi bi-cart"></i></a>
+<a class="nav-link btn btn-primary" href="customerlogin.html"><i class="bi bi-person-fill"></i></a>
+<a class="nav-link btn btn-primary" href="adminlogin.html">Admin Login</a>
+</div>
+</nav>
+</header>
+<div class="welcome-text" style="margin-top: 100px;"> 
+<div class="welcome-container">
+<p style="font-size: 26px;">Welcome to The Book Bin, your go-to destination for quality used books in Tuscaloosa, Alabama!</p>
+<p style="font-size: 26px;">We're passionate about connecting readers with affordable, pre-loved books and fostering a sense of community around the written world!</p>
+</div>
+</div>
+ 
         <div class="text-center" style="margin-top: 10px;">
-            <a href="browse.html" class="btn custom-button" style="font-size: 20px;">Browse our Selection</a>
-        </div>
-        <h1 id="welcomeMessage"></h1>
-        <h2 id ="tokenAmount"></h2>
-        <button id="logoutButton" class="btn btn-danger mt-3 mx-auto d-block" style="display: none;">Logout</button>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const welcomeMessage = document.getElementById('welcomeMessage');
-            const logoutButton = document.getElementById('logoutButton');
-
-
-            // Check if user is logged in
-            const email = localStorage.getItem('email');
-            if (email) {
-                welcomeMessage.textContent = `Welcome, ${email}!`;
-
-                // Show the logout button
-                logoutButton.style.display = 'block';
-
-                // Add click event listener to logout button
-                logoutButton.addEventListener('click', function () {
-                    // Clear local storage
-                    localStorage.removeItem('email');
-                    localStorage.removeItem('password');
-                    localStorage.setItem('isLoggedIn', 'false');
-
-                    // Hide the welcome message and logout button
-                    welcomeMessage.textContent = '';
-                    logoutButton.style.display = 'none';
-
-                    // You can also add a message or other actions after logging out
-                    console.log('User logged out successfully');
-                });
-            } else {
-                // Hide the logout button if no user is logged in
+<a href="browse.html" class="btn btn-danger" style="font-size: 20px;">Browse our Selection</a>
+</div>
+<h1 id="welcomeMessage"></h1>
+<h2 id="tokenAmount" style="font-size: 20px; color: white;"></h2>
+ 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const email = localStorage.getItem('email');
+        function refreshPage() {
+            location.reload();
+        }
+ 
+        if (email) {
+            welcomeMessage.textContent = `Welcome, ${email}!`;
+ 
+            const logoutButton = document.createElement('button');
+            logoutButton.id = 'logoutButton';
+            logoutButton.className = 'btn btn-danger mt-3 mx-auto d-block';
+            logoutButton.style.display = 'block';
+            logoutButton.textContent = 'Logout';
+ 
+            logoutButton.addEventListener('click', function () {
+                localStorage.removeItem('email');
+                localStorage.removeItem('password');
+ 
+                welcomeMessage.textContent = '';
                 logoutButton.style.display = 'none';
-            }
-        });
-    </script>
-
-        
-    <script src="./homepage.js"></script>
+ 
+                console.log('User logged out successfully');
+                refreshPage();
+            });
+ 
+            document.body.appendChild(logoutButton);
+        } else {
+            const loginButton = document.createElement('button');
+            loginButton.id = 'loginButton';
+            loginButton.className = 'btn btn-danger mt-3 mx-auto d-block';
+            loginButton.style.display = 'block';
+            loginButton.textContent = 'Log In';
+ 
+            loginButton.addEventListener('click', function () {
+                window.location.href = 'customerlogin.html';
+            });
+            document.body.appendChild(loginButton);
+        }
+    });
+</script>
+    <script src ="./homepage.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

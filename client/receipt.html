@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="./resources/css/receipt.css">
-    <title>Receipt</title>
-    <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="./resources/css/receipt.css">
+<title>Receipt</title>
+<style>
         .background-container {
             background-image: url('./resources/img/bookbinbackground.jpeg');
             background-size: cover;
-            background-position: center;
             filter: blur(10px);
             position: fixed;
             top: 0;
@@ -20,81 +19,82 @@
             height: 100%;
             z-index: -1;
         }
-    </style>
+</style>
 </head>
 <body onload = "handleOnLoad()">
-    <div class="background-container"></div>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">
-                <div class="logo-image">
-                    <img src="./resources/img/logo.jpg" class="img-fluid">
-                </div>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="homepage.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="browse.html">Buy</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="tradein.html">Trade In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contactus.html">Contact Us</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="navbar-nav">
-                <a class="nav-link btn btn-primary" href="shoppingcart.html"><i class="bi bi-cart"></i></a>
-                <a class="nav-link btn btn-primary" href="customerlogin.html"><i class="bi bi-person-fill"></i></a>
-                <a class="nav-link btn btn-primary" href="adminlogin.html">Admin Login</a>
-            </div>
-        </nav>
-    </header>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-body">
-                        <h1 class="card-title text-center mb-4">Receipt</h1>
+<div class="background-container"></div>
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<a class="navbar-brand" href="/">
+<div class="logo-image">
+<img src="./resources/img/logo.jpg" class="img-fluid">
+</div>
+</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav">
+<li class="nav-item active">
+<a class="nav-link" href="homepage.html">Home</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="browse.html">Buy</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="tradein.html">Trade In</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="contactus.html">Contact Us</a>
+</li>
+</ul>
+</div>
+<div class="navbar-nav">
+<a class="nav-link btn btn-primary" href="shoppingcart.html"><i class="bi bi-cart"></i></a>
+<a class="nav-link btn btn-primary" href="customerlogin.html"><i class="bi bi-person-fill"></i></a>
+<a class="nav-link btn btn-primary" href="adminlogin.html">Admin Login</a>
+</div>
+</nav>
+</header>
+<div class="container mt-5">
+<div class="row justify-content-center">
+<div class="col-md-8">
+<div class="card">
+<div class="card-body">
+<img src="../client/resources/img/logo.jpg" alt="Logo" style="width: 130px; height: auto;">
+<h2 class="card-title text-center mb-4" style="margin-top: 10px;"><strong>Receipt</strong></h2>
+<p style="font-size: 18pt;"><strong>Order Information:</strong></p>
+<p>Email: <span id="customerEmail"></span></p>
+<p>First Name: <span id="customerFName"></span></p>
+<p>Last Name: <span id="customerLName"></span></p>
+<p>Address: <span id="customerAddress"></span></p>
+<p>Country: <span id="country"></span></p>
+<p>State: <span id="state"></span></p>
+<p>Zipcode: <span id="zipcode"></span></p>
  
-                        <!-- Display Order Information -->
-                        <h2>Order Information</h2>
-                            <p>Email: <span id="customerEmail"></span></p>
-                            <p>First Name: <span id="customerFName"></span></p>
-                            <p>Last Name: <span id="customerLName"></span></p>
-                            <p>Address: <span id="customerAddress"></span></p>
-                            <p>Country: <span id="country"></span></p>
-                            <p>State: <span id="state"></span></p>
-                            <p>Zipcode: <span id="zipcode"></span></p>
- 
-                        <!-- Display Books in Shopping Cart -->
-                        <h2>Books Ordered</h2>
-                        <ul id="booksList"></ul>
-                        <a href="homepage.html" class="btn btn-primary" onclick="goToHomepage()">Continue</a>
-                        <h3 style="margin-top: 20px;">Thanks for shopping at the Book Bin!</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
+                        <p style="font-size: 18pt;"><strong>Books Ordered:</strong></p>
+<div style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 10px; background-color: white;">
+<ul id="booksList"></ul>
+</div>
+<div style="text-align: center; margin-top: 25px;">
+<a href="homepage.html" class="btn btn-primary" onclick="goToHomepage()">Continue</a>
+<p style="margin-top: 20px; font-size: 18px;"><strong>Thanks for shopping at The Book Bin!</strong></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
         function goToHomepage() {
             // Clear the local storage
             localStorage.removeItem('shoppingCart');
             localStorage.removeItem('conditions');
-   
             // Navigate to the homepage
             window.location.href = 'homepage.html';
         }
-    </script>
-    <script src="./receipt.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</script>
+<script src="./receipt.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

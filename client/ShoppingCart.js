@@ -152,7 +152,6 @@ async function checkout() {
                 OrderDetailID: 0, // Let the server handle the auto-increment
                 OrderID: 0, // Use the OrderID from the created order
                 BookID: book.bookID, // Replace BookID with the correct property from your book object
-                // Add other properties for order detail as needed
             };
             
             console.log(orderDetail)

@@ -39,20 +39,20 @@ namespace api.Controllers
         }
 
         [HttpDelete("DeleteBook/{bookID}")]
-public IActionResult DeleteBook(int bookID)
-{
-    try
-    {
-        var bookUtility = new BookUtility();
-        bookUtility.DeleteBook(bookID);
-        return Ok($"Book with ID {bookID} deleted successfully.");
-    }
-    catch (Exception ex)
-    {
-        // Log the exception
-        return StatusCode(500, "Internal server error");
-    }
-}
+        public IActionResult DeleteBook(int bookID)
+        {
+            try
+            {
+                var bookUtility = new BookUtility();
+                bookUtility.DeleteBook(bookID);
+                return Ok($"Book with ID {bookID} deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error");
+            }
+        }
 
 
     }
