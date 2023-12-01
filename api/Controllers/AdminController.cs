@@ -1,5 +1,3 @@
-
-//admin controller
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,56 +38,55 @@ namespace api.Controllers
             }
         }
 
- [HttpGet("Price")]
-public IActionResult GetPriceByQuality(int bookID, string quality)
-{
-    try
-    {
-        var bookUtility = new BookUtility();
-        var price = bookUtility.GetPriceByQuality(bookID, quality);
-        return Ok(new { price });
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, "Internal server error");
-    }
-}
-
-        [HttpDelete("DeleteBook/{bookID}")]
-public IActionResult DeleteBook(int bookID)
-{
-    try
-    {
-        var bookUtility = new BookUtility();
-        bookUtility.DeleteBook(bookID);
-        return Ok($"Book with ID {bookID} deleted successfully.");
-    }
-    catch (Exception ex)
-    {
-        // Log the exception
-        return StatusCode(500, "Internal server error");
-    }
-}
-
-
-
-[HttpPut("UpdateBookDetails/{bookID}")]
-        public IActionResult UpdateBookDetails(int bookID, [FromBody] Book book)
+        [HttpGet("Price")]
+        public IActionResult GetPriceByQuality(int bookID, string quality)
         {
             try
             {
                 var bookUtility = new BookUtility();
-                bookUtility.UpdateBookDetails(bookID, book);
-                return Ok($"Book with ID {bookID} updated successfully.");
+                var price = bookUtility.GetPriceByQuality(bookID, quality);
+                return Ok(new { price });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+                [HttpDelete("DeleteBook/{bookID}")]
+        public IActionResult DeleteBook(int bookID)
+        {
+            try
+            {
+                var bookUtility = new BookUtility();
+                bookUtility.DeleteBook(bookID);
+                return Ok($"Book with ID {bookID} deleted successfully.");
             }
             catch (Exception ex)
             {
                 // Log the exception
-                return StatusCode(500, "Internal server error: " + ex.Message);
+                return StatusCode(500, "Internal server error");
             }
         }
 
-    }
 
-    
-}
+
+        [HttpPut("UpdateBookDetails/{bookID}")]
+                public IActionResult UpdateBookDetails(int bookID, [FromBody] Book book)
+                {
+                    try
+                    {
+                        var bookUtility = new BookUtility();
+                        bookUtility.UpdateBookDetails(bookID, book);
+                        return Ok($"Book with ID {bookID} updated successfully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log the exception
+                        return StatusCode(500, "Internal server error: " + ex.Message);
+                    }
+                }
+
+            }
+            
+        }

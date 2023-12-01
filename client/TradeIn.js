@@ -1,5 +1,3 @@
-// TradeIn.js
-
 document.getElementById("tradeInForm").addEventListener("submit", async function(event){
     event.preventDefault();
 
