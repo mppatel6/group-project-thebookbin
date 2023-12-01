@@ -7,10 +7,12 @@ async function handleOnLoad(){
 
     let html = `
     <div id = "bookbody"></div>
+    <div id = "goback"></div>
     `
 
     document.getElementById('app').innerHTML = html
     createBook(myBooks)
+    createGoBack()
 }
 
 async function createBook(myBooks){
@@ -48,6 +50,16 @@ async function handleBuyClick(condition) {
     localStorage.setItem('conditions', JSON.stringify(conditions));
 }
 
+function createGoBack(){
+    let html = `
+    <button class ="btn btn-primary" onclick="goBack()">Go Back</button>`
+
+    document.getElementById('goback').innerHTML = html
+}
+
+function goBack(){
+    window.location.replace("browse.html", "_blank")
+}
 
 
 function goToShoppingCartPage() {
