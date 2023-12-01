@@ -57,10 +57,15 @@
             </div>
         </nav>
     </header>
-    <div>
-        <button class="btn btn-primary" onclick="filterByOrder('name')">Sort by Book Name</button>
-        <button class="btn btn-primary" onclick="filterByOrder('author')">Sort by Book Author</button>
-        <button class="btn btn-primary" onclick="filterByOrder('default')">Default Order</button>
+    
+    <div class="btn-group" style="margin-top: 125px; margin-left: 1250px;">
+        <label class="btn btn-danger" style="font-size: 12pt;">Filter:
+            <select style="height: 35px; font-size: 10pt;" class="form-select" onchange="filterByOrder(this.value)">
+                <option value="default">Default Order</option>
+                <option value="name">Book Name</option>
+                <option value="author">Book Author</option>
+            </select>
+        </label>
     </div>
 
     <div class="carousel-container">
