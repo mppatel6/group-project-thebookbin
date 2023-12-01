@@ -71,59 +71,136 @@
         </nav>
     </header>
 
-    <button class="addbookbtn">Add New Book +</button>
+    ...
+    <div class="button-group">
+        <button class="addbookbtn">Add New Book +</button>
+        <div class="btn-group">
+            <label class="btn btn-danger" style="font-size: 12pt;">Filter:
+                <select style="height: 35px; font-size: 10pt;" class="form-select" onchange="filterByOrder(this.value)">
+                    <option value="default">Default Order</option>
+                    <option value="name">Book Name</option>
+                    <option value="author">Book Author</option>
+                </select>
+            </label>
+        </div>
+    </div>
+    
 
 <div class="shadow-overlay" id="shadowOverlay"></div>
+...
 
+    
+
+    <!-- Add New Book Form -->
 <div class="form-container" id="addBookForm">
-        <h2>Add New Book</h2>
-        <form>
-            <div class="mb-3">
-                <label for="bookTitle" class="form-label">Book Title</label>
-                <input type="text" class="form-control" id="bookTitle" placeholder="Enter book title">
-            </div>
-            <div class="mb-3">
-                <label for="bookAuthor" class="form-label">Author</label>
-                <input type="text" class="form-control" id="bookAuthor" placeholder="Enter author's name">
-            </div>
-            <div class="mb-3">
-                <label for="bookGenre" class="form-label">Genre</label>
-                <select class="form-select" id="bookGenre">
-                    <option value="">Select Genre</option>
-                    <option value="comedy">Comedy</option>
-                    <option value="action">Action</option>
-                    <option value="romance">Romance</option>
-                    <option value="history">History</option>
-                    <option value="child">Child</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="bookQuality" class="form-label">Quality</label>
-                <select class="form-select" id="bookQuality">
-                    <option value="">Select Quality</option>
-                    <option value="new">New</option>
-                    <option value="good">Good</option>
-                    <option value="poor">Poor</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="bookDescription" class="form-label">Description</label>
-                <textarea class="form-control" id="bookDescription" rows="3" placeholder="Enter book description"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="bookImage" class="form-label">Book Image URL</label>
-                <input type="text" class="form-control" id="bookImage" placeholder="Enter image URL">
-            </div>
-            <div class="mb-3">
-                <label for="bookPrice" class="form-label">Price</label>
-                <input type="number" class="form-control" id="bookPrice" placeholder="Enter price">
-                <div class="form-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <button type="button" class="btn btn-secondary close-button">X</button>
-                </div>
-        </form>
-    </div>
+    <h2>Add New Book</h2>
+    <form>
+        <div class="mb-3">
+            <label for="bookTitle" class="form-label">Book Title</label>
+            <input type="text" class="form-control" id="bookTitle" placeholder="Enter book title" required>
+        </div>
+        <div class="mb-3">
+            <label for="bookAuthor" class="form-label">Author</label>
+            <input type="text" class="form-control" id="bookAuthor" placeholder="Enter author's name" required>
+        </div>
+        <div class="mb-3">
+            <label for="bookGenre" class="form-label">Genre</label>
+            <select class="form-select" id="bookGenre" required>
+                <option value="">Select Genre</option>
+                <option value="comedy">Comedy</option>
+                <option value="action">Action</option>
+                <option value="romance">Romance</option>
+                <option value="history">History</option>
+                <option value="child">Child</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="bookQuality" class="form-label">Quality</label>
+            <select class="form-select" id="bookQuality" required>
+                <option value="">Select Quality</option>
+                <option value="new">New</option>
+                <option value="good">Good</option>
+                <option value="poor">Poor</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="bookPrice" class="form-label">Price</label>
+            <input type="number" class="form-control" id="bookPrice" placeholder="Enter price" required>
+        </div>
+        <div class="mb-3">
+            <label for="bookDescription" class="form-label">Description</label>
+            <textarea class="form-control" id="bookDescription" rows="3" placeholder="Enter book description" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="bookImage" class="form-label">Book Image URL</label>
+            <input type="text" class="form-control" id="bookImage" placeholder="Enter image URL" required>
+        </div>
+    
+        <div class="form-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary close-button">X</button>
+        </div>
+    </form>
 </div>
+
+
+<!-- Edit Book Form -->
+<div class="form-container" id="editBookForm">
+    <h2>Edit Book</h2>
+    <form>
+        <div class="mb-3">
+            <label for="editBookTitle" class="form-label">Book Title</label>
+            <input type="text" class="form-control" id="editBookTitle" placeholder="Enter book title" required>
+        </div>
+        <div class="mb-3">
+            <label for="editBookAuthor" class="form-label">Author</label>
+            <input type="text" class="form-control" id="editBookAuthor" placeholder="Enter author's name" required>
+        </div>
+        <div class="mb-3">
+            <label for="editBookGenre" class="form-label">Genre</label>
+            <select class="form-select" id="editBookGenre" required>
+                <option value="">Select Genre</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Action">Action</option>
+                <option value="Romance">Romance</option>
+                <option value="History">History</option>
+                <option value="Child">Child</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="editBookQuality" class="form-label">Quality</label>
+            <select class="form-select" id="editBookQuality" required>
+                <option value="">Select Quality</option>
+                <option value="new">New</option>
+                <option value="good">Good</option>
+                <option value="poor">Poor</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="editBookPrice" class="form-label">Price</label>
+            <input type="number" class="form-control" id="editBookPrice" placeholder="Enter price" required>
+        </div>
+        <div class="mb-3">
+            <label for="editBookQuantity" class="form-label">Quantity</label>
+            <input type="number" id="editBookQuantity" class="form-control" placeholder="Quantity">
+        </div>
+        <div class="mb-3">
+            <label for="editBookDescription" class="form-label">Description</label>
+            <textarea class="form-control" id="editBookDescription" rows="3" placeholder="Enter book description" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="editBookImage" class="form-label">Book Image URL</label>
+            <input type="text" class="form-control" id="editBookImage" placeholder="Enter image URL" required>
+        </div>
+      
+        
+        <div class="form-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary close-button" id="editCloseButton">X</button>
+        </div>
+    </form>
+</div>
+
 
 
 <div class="carousel-container">
@@ -133,6 +210,7 @@
     </div>
     <div class="scroll-right" onclick="scrollCarouselRight()">⟩</div>
 </div>
+
 
 
     

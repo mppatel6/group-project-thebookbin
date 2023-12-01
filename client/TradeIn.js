@@ -46,7 +46,7 @@ document.getElementById("tradeInForm").addEventListener("submit", async function
     };
 
     try {
-        const response = await fetch("http://localhost:5263/api/TradeIn", {
+        const response = await fetch("https://localhost:5263/api/TradeIn", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

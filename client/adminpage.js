@@ -3,6 +3,7 @@ var scrollPerClick;
 var ImagePadding = 20;
 let BooksUnsort = [];
 let Books = [];
+let originalBooks = [];
 let myBooks = [];
 const url = "https://localhost:5263/api/Book";
 
@@ -16,11 +17,82 @@ function handleOnLoad() {
 
 document.addEventListener("DOMContentLoaded", handleOnLoad);
 
-async function fetchBooks(){
-    Books = await getBooks();
-    console.log(Books);
-    createScroll(Books);
+
+// Add an event listener to close the edit form when the "X" button is clicked
+document.querySelector('#editCloseButton').addEventListener('click', function() {
+    const editBookForm = document.getElementById('editBookForm');
+    editBookForm.style.display = 'none';
+    document.getElementById('shadowOverlay').style.display = 'none';
+});
+
+
+// Move the declaration of editedBook outside of the editBook function
+
+// Add an event listener to close the edit form when the "X" button is clicked
+document.querySelector('#editCloseButton').addEventListener('click', function() {
+    const editBookForm = document.getElementById('editBookForm');
+    editBookForm.style.display = 'none';
+    document.getElementById('shadowOverlay').style.display = 'none';
+});
+
+// Existing event listener with modifications
+document.querySelector('#editBookQuality').addEventListener('change', function() {
+    const qualityDropdown = document.getElementById('editBookQuality');
+    const selectedQuality = qualityDropdown.value;
+
+    const priceInput = document.getElementById('editBookPrice');
+    const quantityInput = document.getElementById('editBookQuantity');
+
+    if (editedBook && editedBook.bookID && selectedQuality !== '') {
+        priceInput.value = editedBook[`${selectedQuality}Price`]; // Update price for selected quality
+        quantityInput.value = editedBook[`${selectedQuality}Quantity`]; // Update quantity for selected quality
+    } else {
+        priceInput.value = '';
+        quantityInput.value = '';
+    }
+});
+
+
+
+async function fetchBooks() {
+    try {
+        Books = await getBooks();
+        originalBooks = [...Books]; // Add this line to store the original list
+        console.log('Fetched books:', Books);
+        updateCarousel(Books); 
+    } catch (error) {
+        console.error('Error fetching books:', error);
+    }
 }
+
+
+
+function updateCarousel(books) {
+    const carousel = document.querySelector('.carouselbox');
+    carousel.innerHTML = ''; // Clear existing content
+
+    books.forEach((book, index) => {
+        const bookElement = document.createElement("div");
+        bookElement.classList.add("book");
+        bookElement.setAttribute('data-book-id', book.bookID);
+        bookElement.innerHTML = `
+            <div class="book">
+                <div class="book-container">
+                    <div class="book-content">
+                        <img class="img-${index} slider-img" src="${book.bookImage}" onclick="handleImageClick(${index})"/>
+                    </div>
+                    <div class="book-buttons">
+                        <button class="edit-button" onclick="editBook(${book.bookID})">Edit</button>
+                        <button class="delete-button" onclick="confirmDelete(${book.bookID})">Delete</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        carousel.appendChild(bookElement);
+    });
+}
+
+
 
 async function getBooks(){
     let response = await fetch(url);
@@ -53,10 +125,59 @@ async function createScroll(Book){
     scrollPerClick = document.querySelector(".img-1").clientWidth + ImagePadding;
 }
 
+let editedBook = null; // Declare editedBook in a higher scope
+
+let currentNewPrice, currentGoodPrice, currentPoorPrice;
 function editBook(bookID) {
-    // Redirect to adminbook.html with the bookID as a query parameter
-    window.location.href = `adminbook.html?bookID=${bookID}`;
+    editedBook = Books.find(book => book.bookID === bookID);
+
+    currentNewPrice = editedBook.newPrice;
+    currentGoodPrice = editedBook.goodPrice;
+    currentPoorPrice = editedBook.poorPrice;
+
+    currentNewQuantity = editedBook.newQuantity;
+    currentGoodQuantity = editedBook.goodQuantity;
+    currentPoorQuantity = editedBook.poorQuantity;
+
+    // Populate the editing pop-up box with the book details
+    const editBookForm = document.getElementById('editBookForm');
+    editBookForm.querySelector('#editBookTitle').value = editedBook.bookName; // Use bookName instead of BookName
+    editBookForm.querySelector('#editBookAuthor').value = editedBook.bookAuthor;
+    editBookForm.querySelector('#editBookGenre').value = editedBook.bookGenre;
+    editBookForm.querySelector('#editBookDescription').value = editedBook.bookDescription;
+    editBookForm.querySelector('#editBookImage').value = editedBook.bookImage;
+
+    // Update the price input based on quality
+    const qualityDropdown = document.getElementById('editBookQuality');
+    const priceInput = document.getElementById('editBookPrice');
+    
+    if (['new', 'good', 'poor'].includes(editedBook.bookQuality)) {
+        qualityDropdown.value = editedBook.bookQuality; // Set the selected quality in the dropdown
+
+        // Depending on the selected quality, update the price input
+        switch (editedBook.bookQuality) {
+            case 'new':
+                priceInput.value = editedBook.newPrice; // Set the new price
+                break;
+            case 'good':
+                priceInput.value = editedBook.goodPrice; // Set the good price
+                break;
+            case 'poor':
+                priceInput.value = editedBook.poorPrice; // Set the poor price
+                break;
+        }
+    } else {
+        qualityDropdown.value = ''; // Set to 'Select Quality' option
+        priceInput.value = ''; // Clear the price input
+    }
+
+    // Display the editing pop-up box and shadow overlay
+    document.getElementById('editBookForm').style.display = 'block';
+    document.getElementById('shadowOverlay').style.display = 'block';
 }
+
+
+
 
 function confirmDelete(bookID) {
     const confirmation = confirm("Are you sure you want to delete? This action cannot be undone.");
@@ -200,10 +321,16 @@ document.getElementById("addBookForm").addEventListener("submit", async function
         if (response.ok) {
             console.log("New book added successfully");
             displayNotification("Book Added Successfully", "success");
-            event.target.reset(); // Clear the form fields
+            
+            // Close the add book form
+            document.getElementById('addBookForm').style.display = 'none';
+            document.getElementById('shadowOverlay').style.display = 'none';
+
+            // Refresh the list of books and update the carousel
+            await fetchBooks();
         } else {
-            console.error("Error in adding book");
-            displayNotification("Error in adding book", "error");
+            console.error("Book with the same name and author already exists.");
+            displayNotification("Book with the same name and author already exists.", "error");
         }
     } catch (error) {
         console.error("Network Error: ", error);
@@ -244,3 +371,115 @@ addButton.addEventListener('click', function() {
     addBookForm.style.display = isHidden ? 'block' : 'none';
     document.getElementById('shadowOverlay').style.display = isHidden ? 'block' : 'none';
 });
+
+document.getElementById("editBookForm").addEventListener("submit", async function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const selectedQuality = document.getElementById("editBookQuality").value;
+    const selectedPrice = parseFloat(document.getElementById("editBookPrice").value);
+    const selectedQuantity = parseInt(document.getElementById("editBookQuantity").value, 10); // Assuming you have an input for quantity
+
+
+    // Update the price for the selected quality
+    switch (selectedQuality) {
+        case 'new':
+            currentNewPrice = selectedPrice;
+            currentNewQuantity = selectedQuantity;
+            break;
+        case 'good':
+            currentGoodPrice = selectedPrice;
+            currentGoodQuantity = selectedQuantity;
+            break;
+        case 'poor':
+            currentPoorPrice = selectedPrice;
+            currentPoorQuantity = selectedQuantity;
+            break;
+        default:
+            console.error("Invalid quality selected");
+            return;
+    }
+    // Prepare the updated book data
+    const updatedBook = {
+        bookName: document.getElementById("editBookTitle").value,
+        bookAuthor: document.getElementById("editBookAuthor").value,
+        bookGenre: document.getElementById("editBookGenre").value,
+        bookDescription: document.getElementById("editBookDescription").value,
+        bookImage: document.getElementById("editBookImage").value,
+        newPrice: currentNewPrice,
+        goodPrice: currentGoodPrice,
+        poorPrice: currentPoorPrice,
+        newQuantity: currentNewQuantity,
+        goodQuantity: currentGoodQuantity,
+        poorQuantity: currentPoorQuantity
+        
+    };
+
+    // Send PUT request to update book
+    try {
+        const response = await fetch(`https://localhost:5263/api/Admin/UpdateBookDetails/${editedBook.bookID}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedBook)
+        });
+
+        if (response.ok) {
+            console.log("Book updated successfully");
+            displayNotification("Book updated successfully", "success");
+            // Close the edit form and clear editedBook
+            document.getElementById('editBookForm').style.display = 'none';
+            document.getElementById('shadowOverlay').style.display = 'none';
+            editedBook = null;
+            // Optionally, refresh the book list or update the UI as needed
+        } else {
+            console.error("Error in updating book");
+            displayNotification("Error in updating book", "error");
+        }
+    } catch (error) {
+        console.error("Network Error: ", error);
+        displayNotification("Network Error", "error");
+    }
+});
+
+document.querySelector('#editCloseButton').addEventListener('click', function() {
+    const editBookForm = document.getElementById('editBookForm');
+    editBookForm.style.display = 'none';
+    document.getElementById('shadowOverlay').style.display = 'none';
+
+    // Reset global variables
+    editedBook = null;
+    resetEditForm();
+});
+
+function resetEditForm() {
+    // Reset quantity and price fields
+    document.getElementById('editBookPrice').value = '';
+    document.getElementById('editBookQuantity').value = '';
+
+    // Reset the quality dropdown to 'Select Quality'
+    document.getElementById('editBookQuality').value = '';
+}
+document.getElementById('filterSelect').addEventListener('change', function() {
+    filterByOrder(this.value);
+});
+function filterByOrder(order) {
+    if (order === 'original') {
+        Books = [...originalBooks];
+    } else {
+        Books = sortBooks(order);
+    }
+    updateCarousel(Books); 
+}
+
+function sortBooks(order) {
+    let sortedBooks = [...originalBooks];
+    if (order === 'name') {
+        sortedBooks.sort((a, b) => a.bookName.localeCompare(b.bookName));
+    } else if (order === 'author') {
+        sortedBooks.sort((a, b) => a.bookAuthor.localeCompare(b.bookAuthor));
+    }
+    return sortedBooks;
+}
+
+
