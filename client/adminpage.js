@@ -146,6 +146,8 @@ async function createScroll(Book) {
 let editedBook = null;
 let currentNewPrice, currentGoodPrice, currentPoorPrice;
 function editBook(bookID) {
+    resetEditForm();
+ 
     editedBook = Books.find(book => book.bookID === bookID);
     currentNewPrice = editedBook.newPrice;
     currentGoodPrice = editedBook.goodPrice;
@@ -182,10 +184,11 @@ function editBook(bookID) {
         priceInput.value = ''; // Clear the price input
  
     }
- 
     document.getElementById('editBookForm').style.display = 'block';
  
     document.getElementById('shadowOverlay').style.display = 'block';
+   
+ 
  
 }
  

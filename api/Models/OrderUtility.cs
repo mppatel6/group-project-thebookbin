@@ -64,11 +64,9 @@ namespace api.Models
             string stm = @"INSERT INTO orders(CID, CustomerEmail, CustomerFName, CustomerLName, CustomerAddress, Country, State, Zipcode) VALUES(@CID, @CustomerEmail, @CustomerFName, @CustomerLName, @CustomerAddress, @Country, @State, @Zipcode);";
             using var cmd = new MySqlCommand(stm, con);
 
-            // Handle CID as DBNull.Value if it's null
             var temp = !string.IsNullOrEmpty(Convert.ToString(value.CID)) ? value.CID : (object)DBNull.Value;
             cmd.Parameters.AddWithValue("@CID", temp);
 
-            // Add other parameters as usual
             cmd.Parameters.AddWithValue("@CustomerEmail", value.CustomerEmail);
             cmd.Parameters.AddWithValue("@CustomerFName", value.CustomerFName);
             cmd.Parameters.AddWithValue("@CustomerLName", value.CustomerLName);
