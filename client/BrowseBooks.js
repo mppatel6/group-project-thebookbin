@@ -42,6 +42,15 @@ async function createScroll(Book) {
     scrollPerClick = document.querySelector(".img-1").clientWidth + ImagePadding;
 }
 
+function searchBooks() {
+    const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+    const filteredBooks = originalBooks.filter(book => 
+        book.bookName.toLowerCase().includes(searchTerm) || 
+        book.bookAuthor.toLowerCase().includes(searchTerm)
+    );
+    createScroll(filteredBooks);
+}
+
 async function handleImageClick(index) {
     myBooks.push(Books[index]);
     localStorage.setItem('myBooks', JSON.stringify(Books[index]));
