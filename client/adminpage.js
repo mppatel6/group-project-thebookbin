@@ -188,8 +188,6 @@ function editBook(bookID) {
  
     document.getElementById('shadowOverlay').style.display = 'block';
    
- 
- 
 }
  
  

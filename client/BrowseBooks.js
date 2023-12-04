@@ -3,7 +3,9 @@ var scrollPerClick;
 var ImagePadding = 20;
 let Books = [];
 let myBooks = [];
+let ogBooks = [];
 let originalBooks = [];
+let filteredBooks = []; // Declare filteredBooks outside the function
 const url = "https://localhost:5263/api/Book";
 
 async function handleOnLoad() {
@@ -15,7 +17,8 @@ async function fetchBooks() {
         Books = await getBooks();
         console.log('Fetched books:', Books);
 
-        originalBooks = [...Books];
+        originalBooks = Books.map((book, index) => ({ ...book, originalIndex: index }));
+        ogBooks = [...Books];
         createScroll(Books);
     } catch (error) {
         console.error('Error fetching books:', error);
@@ -44,18 +47,22 @@ async function createScroll(Book) {
 
 function searchBooks() {
     const searchTerm = document.getElementById('searchBar').value.toLowerCase();
-    const filteredBooks = originalBooks.filter(book => 
-        book.bookName.toLowerCase().includes(searchTerm) || 
-        book.bookAuthor.toLowerCase().includes(searchTerm)
-    );
+    filteredBooks = originalBooks
+        .map((book, index) => ({ ...book, originalIndex: index }))
+        .filter(book => 
+            book.bookName.toLowerCase().includes(searchTerm) || 
+            book.bookAuthor.toLowerCase().includes(searchTerm)
+        );
     createScroll(filteredBooks);
 }
 
 async function handleImageClick(index) {
-    myBooks.push(Books[index]);
-    localStorage.setItem('myBooks', JSON.stringify(Books[index]));
+    const clickedBook = filteredBooks.length > 0 ? filteredBooks[index] : Books[index];
+    myBooks.push(clickedBook);
+    localStorage.setItem('myBooks', JSON.stringify(clickedBook));
     window.location.replace("specificbook.html", "_blank");
 }
+
 
 function scrollCarouselLeft() {
     const carousel = document.querySelector('.carousel');
@@ -81,7 +88,7 @@ function goToShoppingCartPage() {
 
 function filterByOrder(order) {
     if (order === 'original') {
-        Books = [...originalBooks]; // Restore the original order
+        Books = [...ogBooks]; // Restore the original order
     } else {
         currentSortOrder = order;
         Books = sortBooks(order);
@@ -99,7 +106,7 @@ function sortBooks(order) {
             Books.sort((a, b) => a.bookAuthor.localeCompare(b.bookAuthor));
             break;
         default:
-            Books = [...originalBooks];
+            Books = [...ogBooks];
             break;
     }
 
