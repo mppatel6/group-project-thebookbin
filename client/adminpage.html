@@ -20,7 +20,7 @@
             z-index: -1;
         }
         .centered-container {
-            display: none; 
+            display: none;
             justify-content: center;
             align-items: center;
             height: 80vh;
@@ -33,6 +33,10 @@
             max-width: 500px;
             text-align: center;
         }
+        .search-bar {
+    height: 70px; /* Adjust the height as needed */
+}
+ 
 </style>
 </head>
 <body onload="handleOnLoad()" style="background-image: url('./resources/img/bookbinbackground.jpeg');">
@@ -72,9 +76,10 @@
 </header>
  
     ...
-<div class="button-group">
+<div class="button-group" style="margin: 0 auto;">
 <button class="addbookbtn">Add New Book +</button>
-<div class="btn-group">
+</div>
+<div class="btn-group" style="margin-top: 125px;">
 <label class="btn btn-danger" style="font-size: 12pt;">Filter:
 <select style="height: 35px; font-size: 10pt;" class="form-select" onchange="filterByOrder(this.value)">
 <option value="default">Default Order</option>
@@ -82,7 +87,9 @@
 <option value="author">Book Author</option>
 </select>
 </label>
+<input type="text" id="searchBar" placeholder="Search..." oninput="searchBooks()" class="search-bar">
 </div>
+ 
 </div>
 <div class="shadow-overlay" id="shadowOverlay"></div>
 <div class="form-container" id="addBookForm">
@@ -181,7 +188,7 @@
 <label for="editBookImage" class="form-label">Book Image URL</label>
 <input type="text" class="form-control" id="editBookImage" placeholder="Enter image URL" required>
 </div>
-
+ 
 <div class="form-footer">
 <button type="submit" class="btn btn-primary">Submit</button>
 <button type="button" class="btn btn-secondary close-button" id="editCloseButton">X</button>

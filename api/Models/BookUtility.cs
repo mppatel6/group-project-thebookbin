@@ -93,7 +93,7 @@ namespace api.Models
  
  
         private void UpdateQuantities(Book book, MySqlConnection con) {
-    string updateQuery = @"UPDATE book 
+    string updateQuery = @"UPDATE book
                            SET NewQuantity = NewQuantity + @NewQuantity,
                                GoodQuantity = GoodQuantity + @GoodQuantity,
                                PoorQuantity = PoorQuantity + @PoorQuantity,
@@ -188,18 +188,18 @@ namespace api.Models
             con.Open();
  
             string updateQuery = @"
-                UPDATE book 
-                SET 
-                    BookName = @BookName, 
-                    BookAuthor = @BookAuthor, 
-                    BookGenre = @BookGenre, 
-                    BookDescription = @BookDescription, 
-                    BookImage = @BookImage, 
-                    NewQuantity = @NewQuantity, 
-                    NewPrice = @NewPrice, 
-                    GoodQuantity = @GoodQuantity, 
-                    GoodPrice = @GoodPrice, 
-                    PoorQuantity = @PoorQuantity, 
+                UPDATE book
+                SET
+                    BookName = @BookName,
+                    BookAuthor = @BookAuthor,
+                    BookGenre = @BookGenre,
+                    BookDescription = @BookDescription,
+                    BookImage = @BookImage,
+                    NewQuantity = @NewQuantity,
+                    NewPrice = @NewPrice,
+                    GoodQuantity = @GoodQuantity,
+                    GoodPrice = @GoodPrice,
+                    PoorQuantity = @PoorQuantity,
                     PoorPrice = @PoorPrice
                 WHERE BookID = @BookID;";
  

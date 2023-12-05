@@ -20,19 +20,19 @@ body {
  
 header {
     width: 100%;
-    z-index: 1000; 
+    z-index: 1000;
 }
  
 .navbar {
-    background-color: rgba(255, 255, 255, 0.9); 
+    background-color: rgba(255, 255, 255, 0.9);
 }
  
 .carousel-container {
     position: relative;
     margin-top: 50px;
     width: 80%;
-    display: flex; 
-    justify-content: center; 
+    display: flex;
+    justify-content: center;
 }
  
  
@@ -50,36 +50,36 @@ header {
  
  
 .carouselbox {
-    display: flex; 
-    flex-direction: row; 
+    display: flex;
+    flex-direction: row;
     padding-bottom: 10px;
 }
  
  
  
 .scroll-left, .scroll-right {
-    font-size: 30px; 
-    color: #000; 
+    font-size: 30px;
+    color: #000;
     cursor: pointer;
     padding: 10px;
-    user-select: none; 
+    user-select: none;
     position: absolute;
-    top: 50%; 
+    top: 50%;
     transform: translateY(-50%);
-    z-index: 3; 
+    z-index: 3;
 }
  
 .scroll-left {
-    left: -40px; 
+    left: -40px;
 }
  
 .scroll-right {
-    right: -40px; 
+    right: -40px;
 }
  
 .carouselbox img {
-    width: 147px; 
-    height: 200px; 
+    width: 147px;
+    height: 200px;
     margin: 0 10px;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -88,26 +88,26 @@ header {
 }
  
 .carouselbox img:hover {
-    transform: scale(1.1); 
+    transform: scale(1.1);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
  
 .carousel::-webkit-scrollbar {
-    width: 12px; 
+    width: 12px;
 }
  
  
 .carousel::-webkit-scrollbar-thumb {
-    background: #888; 
+    background: #888;
     border-radius: 6px;
 }
  
 .carousel::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #555;
 }
  
 .carousel::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: #f1f1f1;
     border-radius: 6px;
 }
  
@@ -117,38 +117,38 @@ header {
 }
  
 .shadow-overlay {
-    display: none; 
-    position: fixed; 
+    display: none;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100vw; 
-    height: 100vh; 
-    background-color: rgba(0, 0, 0, 0.5); 
-    z-index: 1040; 
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
 }
  
 .form-container {
-    display: none; 
-    position: fixed; 
-    top: 30%; 
-    left: 50%; 
-    transform: translate(-50%, -10%); 
+    display: none;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -10%);
     max-width: 500px;
-    width: 80%; 
-    background-color: rgba(255, 255, 255, 0.9); 
-    padding: 30px; 
-    border-radius: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    width: 80%;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1050;
     overflow-y: auto;
-    max-height: 70vh; 
+    max-height: 70vh;
 }
  
 .addbookbtn {
-    top: 10px; 
-    right: 10px; 
-    background-color: #e34a4a; 
-    color: #fff; 
+    top: 10px;
+    right: 10px;
+    background-color: #e34a4a;
+    color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -157,7 +157,7 @@ header {
   }
  
   .addbookbtn:hover {
-    background-color: #ee0b0b; 
+    background-color: #ee0b0b;
   }
  
   .book-container {
@@ -173,7 +173,7 @@ header {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 5px;
     padding: 5px;
-    text-align: center; 
+    text-align: center;
 }
  
 .book-container:hover .book-buttons {
@@ -232,7 +232,7 @@ header {
  
 .btn-secondary {
 }
-
+ 
 .addbookbtn {
     top: 10px;
     right: 10px;
@@ -243,4 +243,9 @@ header {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+}
+
+#searchBar {
+    border-radius: 10px;
+
 }

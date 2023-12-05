@@ -54,9 +54,21 @@ async function fetchBooks() {
     }
  
 }
+ 
+async function fetchBookById(bookID) {
+    try {
+        let response = await fetch(`https://localhost:5263/api/Admin/Book/${bookID}`);
+        let bookData = await response.json();
+        return bookData;
+    } catch (error) {
+        console.error('Error fetching book:', error);
+    }
+}
+ 
+ 
 function updateCarousel(books) {
     const carousel = document.querySelector('.carouselbox');
-    carousel.innerHTML = ''; // Clear existing content
+    carousel.innerHTML = '';
     books.forEach((book, index) => {
         const bookElement = document.createElement("div");
         bookElement.classList.add("book");
@@ -79,8 +91,7 @@ function updateCarousel(books) {
     });
 }
 function calculateScrollAmount() {
-    // Find the width of a single item (if they exist) and add padding
-    const sampleItem = document.querySelector('.carousel .book'); // Adjust the selector to match your items
+    const sampleItem = document.querySelector('.carousel .book');
     if (sampleItem) {
         scrollPerClick = sampleItem.clientWidth + ImagePadding;
     } else {
@@ -143,29 +154,56 @@ async function createScroll(Book) {
  
  
  
-let editedBook = null;
 let currentNewPrice, currentGoodPrice, currentPoorPrice;
-function editBook(bookID) {
-    resetEditForm();
+let currentNewQuantity, currentGoodQuantity, currentPoorQuantity;
  
-    editedBook = Books.find(book => book.bookID === bookID);
-    currentNewPrice = editedBook.newPrice;
-    currentGoodPrice = editedBook.goodPrice;
-    currentPoorPrice = editedBook.poorPrice;
-    currentNewQuantity = editedBook.newQuantity;
-    currentGoodQuantity = editedBook.goodQuantity;
-    currentPoorQuantity = editedBook.poorQuantity;
-    const editBookForm = document.getElementById('editBookForm');
-    editBookForm.querySelector('#editBookTitle').value = editedBook.bookName;
-    editBookForm.querySelector('#editBookAuthor').value = editedBook.bookAuthor;
-    editBookForm.querySelector('#editBookGenre').value = editedBook.bookGenre;
-    editBookForm.querySelector('#editBookDescription').value = editedBook.bookDescription;
-    editBookForm.querySelector('#editBookImage').value = editedBook.bookImage;
+async function editBook(bookID) {
+    try {
+        // Fetch the latest book data from the database
+        const latestBookData = await fetchBookById(bookID);
+        if (!latestBookData) {
+            console.error('Book not found');
+            return;
+        }
+ 
+        // Update editedBook with the latest data
+        editedBook = latestBookData;
+ 
+        // Update the global variables with the latest data
+        currentNewPrice = editedBook.newPrice;
+        currentGoodPrice = editedBook.goodPrice;
+        currentPoorPrice = editedBook.poorPrice;
+        currentNewQuantity = editedBook.newQuantity; // Update these values
+        currentGoodQuantity = editedBook.goodQuantity;
+        currentPoorQuantity = editedBook.poorQuantity;
+ 
+        resetEditForm(); // Reset the form fields
+ 
+        // Populate the form fields with the latest book data
+        const editBookForm = document.getElementById('editBookForm');
+        editBookForm.querySelector('#editBookTitle').value = editedBook.bookName;
+        editBookForm.querySelector('#editBookAuthor').value = editedBook.bookAuthor;
+        editBookForm.querySelector('#editBookGenre').value = editedBook.bookGenre;
+        editBookForm.querySelector('#editBookDescription').value = editedBook.bookDescription;
+        editBookForm.querySelector('#editBookImage').value = editedBook.bookImage;
+ 
+        // Handle quality dropdown and price input
+        updateQualityAndPriceInputs();
+ 
+        // Display the edit form
+        document.getElementById('editBookForm').style.display = 'block';
+        document.getElementById('shadowOverlay').style.display = 'block';
+    } catch (error) {
+        console.error('Error editing book:', error);
+        // Handle error appropriately
+    }
+}
+ 
+function updateQualityAndPriceInputs() {
     const qualityDropdown = document.getElementById('editBookQuality');
     const priceInput = document.getElementById('editBookPrice');
     if (['new', 'good', 'poor'].includes(editedBook.bookQuality)) {
-        qualityDropdown.value = editedBook.bookQuality; // Set the selected quality in the dropdown
-        // Depending on the selected quality, update the price input
+        qualityDropdown.value = editedBook.bookQuality;
         switch (editedBook.bookQuality) {
             case 'new':
                 priceInput.value = editedBook.newPrice;
@@ -178,17 +216,11 @@ function editBook(bookID) {
                 break;
         }
     } else {
- 
-        qualityDropdown.value = ''; // Set to 'Select Quality' option
- 
-        priceInput.value = ''; // Clear the price input
- 
+        qualityDropdown.value = '';
+        priceInput.value = '';
     }
-    document.getElementById('editBookForm').style.display = 'block';
- 
-    document.getElementById('shadowOverlay').style.display = 'block';
-   
 }
+ 
  
  
  
@@ -570,4 +602,13 @@ function sortBooks(order) {
         sortedBooks.sort((a, b) => a.bookAuthor.localeCompare(b.bookAuthor));
     }
     return sortedBooks;
+}
+ 
+function searchBooks() {
+    const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+    const filteredBooks = originalBooks.filter(book =>
+        book.bookName.toLowerCase().includes(searchTerm) ||
+        book.bookAuthor.toLowerCase().includes(searchTerm)
+    );
+    updateCarousel(filteredBooks);
 }

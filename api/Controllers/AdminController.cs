@@ -86,5 +86,21 @@ namespace api.Controllers
                     }
                 }
  
+                // GET: api/Admin/Book/{bookID}
+        [HttpGet("Book/{bookID}")]
+            public IActionResult GetBookById(int bookID)
+            {
+            try
+            {
+                 var bookUtility = new BookUtility();
+                var book = bookUtility.GetBook(bookID);
+                return Ok(book);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
+      }
+    }
