@@ -5,7 +5,7 @@ let Books = [];
 let myBooks = [];
 let ogBooks = [];
 let originalBooks = [];
-let filteredBooks = []; // Declare filteredBooks outside the function
+let filteredBooks = []; 
 const url = "https://localhost:5263/api/Book";
 
 async function handleOnLoad() {
@@ -88,7 +88,7 @@ function goToShoppingCartPage() {
 
 function filterByOrder(order) {
     if (order === 'original') {
-        Books = [...ogBooks]; // Restore the original order
+        Books = [...ogBooks]
     } else {
         currentSortOrder = order;
         Books = sortBooks(order);
@@ -96,7 +96,6 @@ function filterByOrder(order) {
     createScroll(Books);
 }
 
-// Function to sort the books based on the current order
 function sortBooks(order) {
     switch (order) {
         case 'name':

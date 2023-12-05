@@ -34,9 +34,9 @@ async function getCustomers(){
 async function displayCartDetails() {
     let cartItemsList = document.getElementById('cartItemsList');
     let cartItemCount = document.getElementById('cartItemCount');
-    let totalPrice = 0; // Initialize total price
+    let totalPrice = 0; 
 
-    cartItemsList.innerHTML = ''; // Clear previous content
+    cartItemsList.innerHTML = ''; 
 
     if (shoppingCart.length > 0) {
         shoppingCart.forEach((book, index) => {
@@ -59,40 +59,35 @@ async function displayCartDetails() {
 
             cartItemsList.appendChild(listItem);
 
-            // Calculate and add the price to the total
+            
             totalPrice += calculatePrice(book, conditions[index]);
         });
 
-        cartItemCount.textContent = shoppingCart.length; // Update the cart item count
+        cartItemCount.textContent = shoppingCart.length; 
 
-        // Display total price
+        
         cartItemsList.innerHTML += `<li class="list-group-item d-flex justify-content-between">
             <span>Total</span>
             <strong>$${totalPrice.toFixed(2)}</strong>
         </li>`;
     } else {
-        // Display a message if the cart is empty
+        
         cartItemsList.innerHTML = '<li class="list-group-item">Your shopping cart is empty.</li>';
         cartItemCount.textContent = '0';
     }
 }
 
 function removeBook(index) {
-    // Remove the book at the specified index
     shoppingCart.splice(index, 1);
 
-    // Remove the corresponding condition at the specified index
     conditions.splice(index, 1);
 
-    // Save the updated cart and conditions to local storage
     localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
     localStorage.setItem('conditions', JSON.stringify(conditions));
 
-    // Redisplay the cart
     displayCartDetails();
 }
 
-// Function to calculate the price based on condition
 function calculatePrice(book, condition) {
     if (condition === 'NEW') {
         return book.newPrice;
@@ -114,9 +109,9 @@ async function checkout() {
     let state = document.getElementById('state').value;
     let zip = document.getElementById('zip').value;
 
-    // Create the order object
+    
     let order = {
-        OrderID: 0, // Let the server handle the auto-increment
+        OrderID: 0, 
         CID: null,
         CustomerEmail: email,
         CustomerFName: firstName,
@@ -143,19 +138,17 @@ async function checkout() {
             "Content-type": "application/json; charset=UTF-8"
         }
     }).then(async function() {
-        // Iterate through each book in the shopping cart and create an order detail
         for (let i = 0; i < shoppingCart.length; i++) {
             console.log(shoppingCart)
             let book = shoppingCart[i];
     
             let orderDetail = {
-                OrderDetailID: 0, // Let the server handle the auto-increment
-                OrderID: 0, // Use the OrderID from the created order
-                BookID: book.bookID, // Replace BookID with the correct property from your book object
+                OrderDetailID: 0, 
+                OrderID: 0, 
+                BookID: book.bookID, 
             };
             
             console.log(orderDetail)
-            // Make a POST request to create the order detail
             await fetch(odurl, {
                 method: "POST",
                 body: JSON.stringify(orderDetail),

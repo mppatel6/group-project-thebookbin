@@ -29,8 +29,8 @@ document.querySelector('#editBookQuality').addEventListener('change', function()
     const priceInput = document.getElementById('editBookPrice');
     const quantityInput = document.getElementById('editBookQuantity');
     if (editedBook && editedBook.bookID && selectedQuality !== '') {
-        priceInput.value = editedBook[`${selectedQuality}Price`]; // Update price for selected quality
-        quantityInput.value = editedBook[`${selectedQuality}Quantity`]; // Update quantity for selected quality
+        priceInput.value = editedBook[`${selectedQuality}Price`]; 
+        quantityInput.value = editedBook[`${selectedQuality}Quantity`]; 
     } else {
         priceInput.value = '';
         quantityInput.value = '';
@@ -116,7 +116,7 @@ async function createScroll(Book) {
  
         bookElement.classList.add("book");
  
-        bookElement.setAttribute('data-book-id', cur.bookID); // Set unique identifier
+        bookElement.setAttribute('data-book-id', cur.bookID);
  
         bookElement.innerHTML = `
  
@@ -159,27 +159,24 @@ let currentNewQuantity, currentGoodQuantity, currentPoorQuantity;
  
 async function editBook(bookID) {
     try {
-        // Fetch the latest book data from the database
         const latestBookData = await fetchBookById(bookID);
         if (!latestBookData) {
             console.error('Book not found');
             return;
         }
  
-        // Update editedBook with the latest data
         editedBook = latestBookData;
  
-        // Update the global variables with the latest data
         currentNewPrice = editedBook.newPrice;
         currentGoodPrice = editedBook.goodPrice;
         currentPoorPrice = editedBook.poorPrice;
-        currentNewQuantity = editedBook.newQuantity; // Update these values
+        currentNewQuantity = editedBook.newQuantity;
         currentGoodQuantity = editedBook.goodQuantity;
         currentPoorQuantity = editedBook.poorQuantity;
  
-        resetEditForm(); // Reset the form fields
+        resetEditForm(); 
  
-        // Populate the form fields with the latest book data
+        
         const editBookForm = document.getElementById('editBookForm');
         editBookForm.querySelector('#editBookTitle').value = editedBook.bookName;
         editBookForm.querySelector('#editBookAuthor').value = editedBook.bookAuthor;
@@ -187,15 +184,15 @@ async function editBook(bookID) {
         editBookForm.querySelector('#editBookDescription').value = editedBook.bookDescription;
         editBookForm.querySelector('#editBookImage').value = editedBook.bookImage;
  
-        // Handle quality dropdown and price input
+        
         updateQualityAndPriceInputs();
  
-        // Display the edit form
+        
         document.getElementById('editBookForm').style.display = 'block';
         document.getElementById('shadowOverlay').style.display = 'block';
     } catch (error) {
         console.error('Error editing book:', error);
-        // Handle error appropriately
+        
     }
 }
  
@@ -406,13 +403,11 @@ document.getElementById("addBookForm").addEventListener("submit", async function
  
             displayNotification("Book Added Successfully", "success");
  
-            // Close the add book form
  
             document.getElementById('addBookForm').style.display = 'none';
  
             document.getElementById('shadowOverlay').style.display = 'none';
  
-            // Refresh the list of books and update the carousel
  
             await fetchBooks();
  
@@ -464,7 +459,7 @@ function displayNotification(message, type) {
  
         notificationDiv.remove();
  
-    }, 4000); // Notification will disappear after 4 seconds
+    }, 4000);
  
 }
  
@@ -501,7 +496,6 @@ document.getElementById("editBookForm").addEventListener("submit", async functio
     const selectedQuantity = parseInt(document.getElementById("editBookQuantity").value, 10);
  
  
-    // Update the price for the selected quality
  
     switch (selectedQuality) {
         case 'new':
@@ -558,7 +552,6 @@ document.getElementById("editBookForm").addEventListener("submit", async functio
         if (response.ok) {
             console.log("Book updated successfully");
             displayNotification("Book updated successfully", "success");
-            // Close the edit form and clear editedBook
             document.getElementById('editBookForm').style.display = 'none';
             document.getElementById('shadowOverlay').style.display = 'none';
             editedBook = null;
@@ -579,10 +572,8 @@ document.querySelector('#editCloseButton').addEventListener('click', function() 
     resetEditForm();
 });
 function resetEditForm() {
-    // Reset quantity and price fields
     document.getElementById('editBookPrice').value = '';
     document.getElementById('editBookQuantity').value = '';
-    // Reset the quality dropdown to 'Select Quality'
     document.getElementById('editBookQuality').value = '';
 }
  

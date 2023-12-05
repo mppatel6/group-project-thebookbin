@@ -16,7 +16,6 @@ async function handleOnLoad() {
     await fetchOrders();
     await fetchBooks();
 
-    // Populate the receipt information
     populateReceipt();
     editBooks();
 }
@@ -45,13 +44,11 @@ async function getBooks(){
     return await books
 }
 
-// ... (your existing code)
 
 function populateReceipt() {
-    // Assuming the latest order is the last one in the array
     const lastOrder = Orders[Orders.length - 1];
 
-    // Display customer information
+    
     document.getElementById('customerEmail').innerText = lastOrder.customerEmail;
     document.getElementById('customerFName').innerText = lastOrder.customerFName;
     document.getElementById('customerLName').innerText = lastOrder.customerLName;
@@ -60,15 +57,15 @@ function populateReceipt() {
     document.getElementById('state').innerText = lastOrder.state;
     document.getElementById('zipcode').innerText = lastOrder.zipcode;
 
-    // Display books in shopping cart
+    
     const booksList = document.getElementById('booksList');
-    let totalPrice = 0; // Initialize total price
+    let totalPrice = 0; 
 
-    booksList.innerHTML = ''; // Clear previous content
+    booksList.innerHTML = ''; 
 
     if (shoppingCart.length > 0) {
         shoppingCart.forEach((book, index) => {
-            const condition = conditions[index]; // Assuming conditions are in sync with shoppingCart
+            const condition = conditions[index]; 
             let li = document.createElement('li');
             li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'lh-condensed');
 
@@ -86,24 +83,23 @@ function populateReceipt() {
 
             booksList.appendChild(li);
 
-            // Calculate and add the price to the total
+            
             totalPrice += calculatePrice(book, condition);
         });
 
-        // Display total price
+        
         booksList.innerHTML += `<li class="list-group-item d-flex justify-content-between">
             <span>Total</span>
             <strong>$${totalPrice.toFixed(2)}</strong>
         </li>`;
     } else {
-        // Display a message if the cart is empty
         booksList.innerHTML = '<li class="list-group-item">Your shopping cart is empty.</li>';
     }
 }
 
 
 function getBookPrice(book, condition) {
-    // Determine the price based on the condition
+    
     switch (condition) {
         case 'NEW':
             return `$${book.newPrice}`;
@@ -125,7 +121,7 @@ function calculatePrice(book, condition) {
         case 'POOR':
             return book.poorPrice;
         default:
-            return 0; // or throw an error for unknown condition
+            return 0; 
     }
 }
 
@@ -135,13 +131,11 @@ async function editBooks() {
     async function updateBooks() {
         for (let i = 0; i < shoppingCart.length; i++) {
             const cartItem = shoppingCart[i];
-            const condition = conditions[i]; // Get the condition from the array
-
-            // Find the corresponding book in the Books array
+            const condition = conditions[i]; 
             const matchingBook = Books.find((book) => book.bookID === cartItem.bookID);
             
             if (matchingBook) {
-                // Update the quantity based on the condition
+                
                 switch (condition) {
                     case 'NEW':
                         matchingBook.newQuantity -= 1;
@@ -169,7 +163,7 @@ async function editBooks() {
         }
     }
 
-    await updateBooks(); // Invoke the inner function
+    await updateBooks(); 
 }
 
 

@@ -1,11 +1,11 @@
-// Function to check if the user is logged in
+
 const curl = "https://localhost:5263/api/Customer";
 
 function isLoggedIn() {
     return localStorage.getItem('isLoggedIn') === 'true';
 }
 
-// Function to display a message
+
 function displayMessage(message, type) {
     const messageDiv = document.createElement("div");
     messageDiv.textContent = message;
@@ -17,7 +17,7 @@ function displayMessage(message, type) {
     }, 4000);
 }
 
-// Check if the user is logged in and display the trade-in form accordingly
+
 const tradeInContainer = document.getElementById('tradeInContainer');
 const loginMessage = document.getElementById('loginMessage');
 
@@ -27,17 +27,16 @@ if (isLoggedIn()) {
     loginMessage.textContent = "Sorry, you cannot use the trade-in function until you have logged in.";
 }
 
-// Event listener for the trade-in form
+
 document.getElementById("tradeInForm").addEventListener("submit", async function (event) {
     event.preventDefault();
 
     if (!isLoggedIn()) {
-        // Display a message to log in first
         displayMessage("Please log in to use this function", "error");
         return;
     }
 
-    // Your existing trade-in form submission logic
+    
     const bookTitle = document.getElementById("bookTitle").value;
     const bookAuthor = document.getElementById("bookAuthor").value;
     const bookGenre = document.getElementById("bookGenre").value;

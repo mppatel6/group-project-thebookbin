@@ -38,7 +38,7 @@ async function createBook(myBooks){
 }
  
  
-    // Function to handle adding a book to the shopping cart
+
 async function handleBuyClick(condition) {
     let shoppingCart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
     let conditions = JSON.parse(localStorage.getItem('conditions')) || [];

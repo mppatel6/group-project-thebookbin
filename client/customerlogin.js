@@ -40,7 +40,6 @@ async function handleLogin() {
 
 
         console.log("success")
-        // Redirect to browse.html
         window.location.href = "./homepage.html"
     } else {
         
