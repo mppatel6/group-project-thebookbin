@@ -76,20 +76,22 @@
 </header>
  
     ...
-<div class="button-group" style="margin: 0 auto;">
-<button class="addbookbtn">Add New Book +</button>
-</div>
-<div class="btn-group" style="margin-top: 125px;">
-<label class="btn btn-danger" style="font-size: 12pt;">Filter:
-<select style="height: 35px; font-size: 10pt;" class="form-select" onchange="filterByOrder(this.value)">
-<option value="default">Default Order</option>
-<option value="name">Book Name</option>
-<option value="author">Book Author</option>
-</select>
-</label>
-<input type="text" id="searchBar" placeholder="Search..." oninput="searchBooks()" class="search-bar">
-</div>
+<div class="button-group">
+<button class="addbookbtn" style="margin-right: 610px; width: 162px; margin-top: 115px;">Add New Book +</button>
  
+<div style="display: flex; margin-left: 592px; margin-top: 10px;" >
+    <input style="width: 400px; font-size: 22pt; margin-right: 10px;" type="text" id="searchBar" placeholder="Search..." oninput="searchBooks()">
+ 
+    <div class="btn-group">
+        <label class="btn btn-danger" style="font-size: 12pt;">Filter:
+            <select style="height: 35px; font-size: 10pt;" class="form-select" onchange="filterByOrder(this.value)">
+                <option value="default">Default Order</option>
+                <option value="name">Book Name</option>
+                <option value="author">Book Author</option>
+            </select>
+        </label>
+    </div>
+</div>
 </div>
 <div class="shadow-overlay" id="shadowOverlay"></div>
 <div class="form-container" id="addBookForm">
