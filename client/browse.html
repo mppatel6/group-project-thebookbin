@@ -57,8 +57,10 @@
             </div>
         </nav>
     </header>
-   
-    <div class="btn-group" style="margin-top: 125px;">
+    <div style="display: flex; margin-top: 110px;">
+    <input style="width: 400px; font-size: 22pt; margin-right: 10px;" type="text" id="searchBar" placeholder="Search..." oninput="searchBooks()">
+ 
+    <div class="btn-group">
         <label class="btn btn-danger" style="font-size: 12pt;">Filter:
             <select style="height: 35px; font-size: 10pt;" class="form-select" onchange="filterByOrder(this.value)">
                 <option value="default">Default Order</option>
@@ -66,7 +68,7 @@
                 <option value="author">Book Author</option>
             </select>
         </label>
-        <input type="text" id="searchBar" placeholder="Search..." oninput="searchBooks()">
+    </div>
     </div>
  
     <div class="carousel-container">
